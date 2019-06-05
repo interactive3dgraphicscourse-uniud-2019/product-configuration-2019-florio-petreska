@@ -1,0 +1,30 @@
+{
+  "name": "product-configuration-florio-petreska",
+  "version": "1.0.0",
+  "description": "A Product Configuration Page in Three js",
+  "author": "Silvia Florio - Viktorija Petreska",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/interactive3dgraphicscourse-uniud-2019/product-configuration-2019-florio-petreska.git"
+  },
+  "keywords": [
+    "jade",
+    "gulp",
+    "pug",
+    "sass",
+    "browsersync",
+    "threejs",
+    "configurator"
+  ]
+}
