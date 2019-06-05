@@ -26,3 +26,11 @@ Inizialmente ci concentreremo su due materiali per la cornice e due materiali pe
 
 Per quanto riguarda il modello 3D, utilizzeremo un modello creato da noi utilizzando Blender.
 
+###Implementazione logo
+Abbiamo fatto più versioni di design del logo. Il logo principale contiene una singola lettera "A" e il nome dell'azienda ACME. 
+L'intero logo sarà usato nel titolo della pagina principale e invece la singola lettera ci piacerebbe usarla come logo sul tablet.
+
+![](logo/logo-letter.png)
+![](logo/logo-full.png)
+![](logo/logo-all-letters.png)
+
