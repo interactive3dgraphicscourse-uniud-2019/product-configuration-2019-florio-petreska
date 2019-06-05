@@ -1,0 +1,26 @@
+@import "../../node_modules/materialize-css/sass/components/color-variables";
+@import "../../node_modules/materialize-css/sass/components/color-classes";
+@import "../../node_modules/materialize-css/sass/components/variables";
+@import "../../node_modules/materialize-css/sass/components/normalize";
+
+@import "../../node_modules/materialize-css/sass/materialize.scss";
+
+
+
+
+nav {
+    .brand-logo{
+        top: 0;
+        left: 3rem;
+    }
+    ul {
+        position: absolute;
+        right: 3rem;
+        display: flex;
+        top: 0;
+    }
+}
+
+
+
+
