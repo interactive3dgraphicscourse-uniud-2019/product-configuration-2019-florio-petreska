@@ -40,4 +40,10 @@ Abbiamo creato due avatar che saranno usati come le immagini profilo per gli ute
 ![](avatars/avatar1.png)
 ![](avatars/avatar2.png)
 
+### Prodotti simili
+Immagini di altri prodotti simili.
+
+![](similar-products/tablet1.png)
+![](similar-products/tablet2.png)
+![](similar-products/tablet3.png)
 
