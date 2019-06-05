@@ -21,6 +21,36 @@ nav {
     }
 }
 
+.main {
+    padding: 0 3rem;
+    .configurator {
+        padding-top: 1rem;
+        .title {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 0;
+        }
+        .prop {
+            &-title {
+                span {
+                    font-weight: lighter;
+                    padding-left: .5rem;
+                    font-size: .8em;
+                }
+            }
+            &-images{
+                .active img {
+                    border: 2px solid $secondary-color;
+                }
+                img {
+                    border-radius: 5%;
+                }
+            }
+        }
+    }
+}
+
 
 
 
