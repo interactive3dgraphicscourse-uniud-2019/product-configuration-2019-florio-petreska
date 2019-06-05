@@ -34,3 +34,16 @@ L'intero logo sarà usato nel titolo della pagina principale e invece la singola
 ![](logo/logo-full.png)
 ![](logo/logo-all-letters.png)
 
+### Creazione avatar utenti
+Abbiamo creato due avatar che saranno usati come le immagini profilo per gli utenti che hanno lasciato un review per il nostro prodotto.
+
+![](avatars/avatar1.png)
+![](avatars/avatar2.png)
+
+### Prodotti simili
+Immagini di altri prodotti simili.
+
+![](similar-products/tablet1.png)
+![](similar-products/tablet2.png)
+![](similar-products/tablet3.png)
+
