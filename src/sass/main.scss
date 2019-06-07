@@ -30,9 +30,20 @@ nav {
             align-items: baseline;
             justify-content: space-between;
             margin-bottom: 0;
+            h3 {
+                margin-top: 1rem;
+                padding-left: .6rem;
+            }
+        }
+        #threejs-container {
+            height: 70vh;
+            background-color: red;
         }
         .prop {
             &-title {
+                h6 {
+                    margin-top: 0;
+                }
                 span {
                     font-weight: lighter;
                     padding-left: .5rem;
