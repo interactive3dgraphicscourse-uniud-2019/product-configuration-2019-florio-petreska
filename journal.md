@@ -35,7 +35,7 @@ L'intero logo sarà usato nel titolo della pagina principale e invece la singola
 ![](logo/logo-all-letters.png)
 
 ### Creazione avatar utenti
-Abbiamo creato due avatar che saranno usati come le immagini profilo per gli utenti che hanno lasciato un review per il nostro prodotto.
+Abbiamo creato due avatar che saranno usati come le immagini profilo per gli utenti che hanno lasciato una review per il nostro prodotto.
 
 ![](avatars/avatar1.png)
 ![](avatars/avatar2.png)
@@ -47,13 +47,25 @@ Immagini di altri prodotti simili.
 ![](similar-products/tablet2.png)
 ![](similar-products/tablet3.png)
 
-### Creazione modello in Blender
-//
+## 06/06/2019
+### La pagina web
+Abbiamo impostato la cartella per la realizzazione veloce di HTML e CSS grazie a Pug e Sass rispettivamente, utilizzando Gulp come task runner per i compilatori e per l'automazione del reload del browser quando i file vengono modificati.
 
+Abbiamo quindi realizzato lo scheletro per la parte superiore della pagina web sfruttando il framework materialize css, che ha comportato una issue di vulnerabilità di bassa gravità che indagheremo meglio quando avremo finito la baseline del nostro progetto.
+
+![](images/first-screen.png)
+![](images/security-issue.png)
+
+## 07/06/2019
+### Il modello 3D
+Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato  come un file Wavefront (.obj) diviso in 4 parti separate: lo schermo, la cornice, il logo e la scocca.
 
 ### Caricamento del modello sulla pagina
-Abbiamo esportato il modello fatto in Blender come un file Wavefront (.obj). Da ciò poi abbiamo incluso i loader OBJLoader2 e LoadingSupport.js nella nostra scena. 
+Per importare il file nella scena, abbiamo incluso gli script OBJLoader2 e LoadingSupport.js nel file HTML. 
 
-Il modello è diviso in 4 parti, lo schermo, la cornice, il logo e la scocca.
-Dopodichè abbiamo caricato il tablet nel container apposito sulla interfaccia, abbiamo fatto una prova semplice con i cambiamenti dei colori dei 4 parti.
+Abbiamo quindi creato una classe per il Tablet che si occupa di gestirne i materiali e le geometrie, oltre che il caricamento.
+
+Dopodichè abbiamo caricato il tablet nel container apposito sulla interfaccia, abbiamo fatto una prova semplice con alcuni cambiamenti del colore dei materiali delle 4 parti.
 ![](images/tablet-colors1.png)
+
+Infine abbiamo provato a riutilizzare il codice dello shader lambertiano visto a lezione per assegnare un nuovo materiale elaborato con lo shader alla scocca del nostro ACMEpad
