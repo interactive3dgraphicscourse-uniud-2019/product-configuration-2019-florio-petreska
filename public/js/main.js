@@ -17,12 +17,18 @@ function init() {
 
     var sphereMaterial = new THREE.MeshBasicMaterial({color:0xff0000});
 			
-    sphere = new THREE.Mesh(
+    /* sphere = new THREE.Mesh(
         new THREE.SphereGeometry( 1,0,0 ),
         sphereMaterial );
         
 
-    scene.add( sphere );
+    scene.add( sphere ); */
+
+    const objLoader = new THREE.OBJLoader2();
+    objLoader.load('./assets/tablet-nouvs-nomat.obj ', (event) => {
+      const root = event.detail.loaderRootNode;
+      scene.add(root);
+    });
 
 }
 

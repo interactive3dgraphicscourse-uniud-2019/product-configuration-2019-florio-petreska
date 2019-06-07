@@ -5,6 +5,8 @@
 
 'use strict';
 
+console.log("OBJLoader")
+
 if ( THREE.LoaderSupport === undefined ) { THREE.LoaderSupport = {} }
 
 /**
