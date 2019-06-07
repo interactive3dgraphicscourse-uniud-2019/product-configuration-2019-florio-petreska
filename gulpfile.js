@@ -76,6 +76,7 @@ gulp.task('sass', function () {
 gulp.task('watch', function () {
   gulp.watch(paths.sass + '**/*.scss', ['sass']);
   gulp.watch('./src/**/*.pug', ['rebuild']);
+  gulp.watch('./public/**/*.js', ['rebuild']);
 });
 
 // Build task compile sass and pug.
