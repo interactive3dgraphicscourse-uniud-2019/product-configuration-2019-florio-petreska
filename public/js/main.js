@@ -1,3 +1,5 @@
+let controls;
+
 function init() {
 
     container = document.getElementById("threejs-container");
@@ -9,6 +11,9 @@ function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
+
+    controls = new THREE.OrbitControls(camera, container);
+    controls.target.set(0, 0, 0);
 
     var sphereMaterial = new THREE.MeshBasicMaterial({color:0xff0000});
 			
@@ -23,6 +28,8 @@ function init() {
 
 function update() {
     requestAnimationFrame(update);
+    
+    controls.update();
     
     renderer.render(scene, camera);
 }
