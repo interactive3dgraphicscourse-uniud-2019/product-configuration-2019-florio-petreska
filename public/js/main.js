@@ -23,12 +23,30 @@ function init() {
         
 
     scene.add( sphere ); */
+{
+    const skyColor = 0xB1E1FF;  // light blue
+    const groundColor = 0xB97A20;  // brownish orange
+    const intensity = 1;
+    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    scene.add(light);
+}
+{
+    const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(0, 10, 0);
+    light.target.position.set(-5, 0, 0);
+    scene.add(light);
+    scene.add(light.target);
+}
 
-    const objLoader = new THREE.OBJLoader2();
-    objLoader.load('./assets/tablet-nouvs-nomat.obj ', (event) => {
-      const root = event.detail.loaderRootNode;
-      scene.add(root);
-    });
+let tablet = new Tablet('./assets/tablet-groups.obj');
+tablet.loadObject((event)=> {
+    tablet.loaded(event);
+    tablet.addToScene(scene);
+})
+
+    
 
 }
 
