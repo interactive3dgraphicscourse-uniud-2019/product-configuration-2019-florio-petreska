@@ -48,10 +48,12 @@ Immagini di altri prodotti simili.
 ![](similar-products/tablet3.png)
 
 ### Creazione modello in Blender
+//
+
 
 ### Caricamento del modello sulla pagina
 Abbiamo esportato il modello fatto in Blender come un file Wavefront (.obj). Da ciò poi abbiamo incluso i loader OBJLoader2 e LoadingSupport.js nella nostra scena. 
 
 Il modello è diviso in 4 parti, lo schermo, la cornice, il logo e la scocca.
 Dopodichè abbiamo caricato il tablet nel container apposito sulla interfaccia, abbiamo fatto una prova semplice con i cambiamenti dei colori dei 4 parti.
-![](images/tablet-colors.png)
+![](images/tablet-colors1.png)
