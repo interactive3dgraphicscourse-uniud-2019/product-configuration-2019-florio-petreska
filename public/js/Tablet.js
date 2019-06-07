@@ -2,6 +2,7 @@ class Tablet {
     constructor(path) {
         this.path = path;
         this.pivot = new THREE.Object3D();
+        this.ready = false;
     }
     
     loadObject(callback) {
@@ -19,9 +20,27 @@ class Tablet {
             this.pivot.add(this.frame);
             this.pivot.add(this.screen);
             this.pivot.add(this.back);
+            this.ready = true;
     }
 
     addToScene(scene) {
         scene.add(this.pivot)
+    }
+
+    changeMaterial(geom, material) {
+        switch(geom) {
+            case 0: 
+                this.back.material = material;
+                this.logo.material = material;
+                break;
+            case 1: 
+                this.frame.material = material;
+                break;
+        }
+
+    }
+
+    isReady() {
+        return this.ready;
     }
 }

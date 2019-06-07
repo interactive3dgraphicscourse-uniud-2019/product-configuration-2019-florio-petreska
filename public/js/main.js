@@ -1,4 +1,6 @@
-let controls;
+let controls, tablet;
+const BACK = 0;
+const FRAME = 1;
 
 function init() {
 
@@ -40,17 +42,24 @@ function init() {
     scene.add(light.target);
 }
 
-let tablet = new Tablet('./assets/tablet-groups.obj');
-tablet.loadObject((event)=> {
-    tablet.loaded(event);
-    tablet.addToScene(scene);
-})
+    tablet = new Tablet('./assets/tablet-groups.obj');
+    tablet.loadObject((event)=> {
+        tablet.loaded(event);
+        tablet.addToScene(scene);
+    });
 
     
 
 }
 
 function update() {
+    if(tablet.isReady()) {
+        let backMaterial = new THREE.MeshBasicMaterial({color: 0xff0000})
+        let frameMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00})
+        tablet.changeMaterial(BACK, backMaterial);
+        tablet.changeMaterial(FRAME, frameMaterial);
+        
+    }
     requestAnimationFrame(update);
     
     controls.update();
@@ -58,6 +67,5 @@ function update() {
     renderer.render(scene, camera);
 }
 
-console.log("HELLO!")
 init();
 update();
