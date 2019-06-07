@@ -43,4 +43,10 @@ class Tablet {
     isReady() {
         return this.ready;
     }
+
+    rotatePosition(){
+        this.pivot.rotation.z = -25* Math.PI/180;     
+        this.pivot.rotation.x = 75* Math.PI/180; 
+    }
+    
 }
