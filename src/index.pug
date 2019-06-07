@@ -5,6 +5,34 @@ head
     script(src="./js/lib/LoaderSupport.js")
     script(src="./js/lib/OBJLoader2.js")
 body
+    script(type="text/x-glsl", id="vertex").
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        void main() {
+            vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
+            vPosition = vPos.xyz;
+            vNormal = normalMatrix * normal;
+            gl_Position = projectionMatrix * vPos;
+        }
+    script(type="text/x-glsl", id="fragment").
+        varying vec3 vNormal;
+        varying vec3 vPosition;
+        uniform vec3 pointLightPosition; // in world space
+        uniform vec3 clight;
+        uniform vec3 cdiff;
+        const float PI = 3.14159;
+        void main() {
+            vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
+            vec3 l = normalize(lPosition.xyz - vPosition.xyz);
+            vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+            float nDotl = max(dot( n, l ),0.0);
+            // formula would be:
+            // outRadiance = clight * PI * cdiff/PI * nDotl, the two PI cancel out
+            vec3 outRadiance = clight * nDotl * cdiff;
+            // gamma encode the final value
+            gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
+        }
+
     .navbar-fixed
         nav
             .nav-wrapper
