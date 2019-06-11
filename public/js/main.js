@@ -78,12 +78,16 @@ function init() {
 
 }
 
+
+
+
 function update() {
     if(tablet.isReady()) {
         let backMaterial = new THREE.MeshBasicMaterial({color: 0xff0000})
         let frameMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00})
         tablet.changeMaterial(BACK, ourMaterial);
         tablet.changeMaterial(FRAME, frameMaterial);
+        tablet.rotatePosition();
         
     }
     requestAnimationFrame(update);
@@ -94,4 +98,5 @@ function update() {
 }
 
 init();
+
 update();
