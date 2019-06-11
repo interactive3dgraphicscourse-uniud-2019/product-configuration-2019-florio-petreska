@@ -1,6 +1,7 @@
-let controls, tablet, vs, fs, ourMaterial;
+let controls, tablet, vs, fs, ourMaterial, aoMap, normalMap;
 const BACK = 0;
 const FRAME = 1;
+
 
 function init() {
 
@@ -54,11 +55,21 @@ function init() {
         blue: 0.0,
     }
 
+    var normalMap = loadTexture( "/images/normal.jpg" );
+    var aoMap = loadTexture("/images/ao.jpg");
+
+
     var uniforms = {
-        cdiff:	{ type: "v3", value: new THREE.Vector3(1, 0, 0) }, // diffuse color
-        pointLightPosition:	{ type: "v3", value: new THREE.Vector3() }, // light position
-        clight:	{ type: "v3", value: new THREE.Vector3(1,1,1) }, // light color
-    };
+        cspec:	{ type: "v3", value: new THREE.Vector3(0.04,0.04,0.04) },
+        cdiff:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
+        roughness: {type: "f", value: 0.2},
+          normalMap:	{ type: "t", value: normalMap},
+            aoMap:	{ type: "t", value: aoMap},
+            normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+            pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+            clight:	{ type: "v3", value: new THREE.Vector3() },
+            ambientLight:	{ type: "v3", value: new THREE.Vector3() },
+        };
 
     // control light position
     uniforms.pointLightPosition.value = new THREE.Vector3(7,7,7);
@@ -69,11 +80,24 @@ function init() {
         tablet.addToScene(scene);
     });
 
+    function loadTexture(file) {
+        var texture = new THREE.TextureLoader().load( file , function ( texture ) {
+            texture.minFilter = THREE.LinearMipMapLinearFilter;
+            texture.anisotropy = renderer.getMaxAnisotropy();
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+              texture.offset.set( 0, 0 );
+            texture.needsUpdate = true;
+            render();
+        } )
+        return texture;
+}
+
    
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
     ourMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs });
-
+    ourMaterial.vertexTangents = true;
+	ourMaterial.needsUpdate = true;
     
 
 }
