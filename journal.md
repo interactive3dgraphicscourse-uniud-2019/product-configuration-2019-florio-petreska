@@ -77,4 +77,12 @@ Abbiamo fatto una ricerca online per vedere quale è il modo migliore per l'illu
 La luce principale deve essere posizionata davanti o sulla parte superiore, spesso leggermente di lato, del prodotto, mentre la retroilluminazione è sul lato opposto, sul retro. Le luci di riempimento sono posizionate sui lati.
 
 ![](images/lightPos.jpg)
-![](images/lightPos1.jpg)
+![](images/lightPos2.jpg)
+
+## 12/06/2019
+Abbiamo cambiato lo shader per poter essere in grado di accetare più luci.
+
+![](images/tablet-light1.png)
+![](images/tablet-light3.png)
+![](images/tablet-light2.png)
+![](images/tablet-light4.png)
