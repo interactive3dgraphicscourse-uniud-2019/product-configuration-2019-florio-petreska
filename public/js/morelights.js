@@ -62,15 +62,14 @@ function init() {
         cspec:	{ type: "v3", value: new THREE.Vector3() },
         cdiff:	{ type: "v3", value: new THREE.Vector3() },
         roughness: {type: "f", value: 0.5},
-        pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+        pointLightPosition:	{ type: "v3[]", value: new Array(2)},
         clight:	{ type: "v3", value: new THREE.Vector3() },
-        pointLightPosition2:	{ type: "v3", value: new THREE.Vector3() },
 
     };
 
     // control light position
-    uniforms.pointLightPosition.value = new THREE.Vector3(7,7,7);
-    uniforms.pointLightPosition2.value = new THREE.Vector3(-7,-7,-7);
+    uniforms.pointLightPosition.value[0] = new THREE.Vector3(-5,-5,-2);
+    uniforms.pointLightPosition.value[1] = new THREE.Vector3(5,5,-2);
 
         uniforms.cspec.value = new THREE.Vector3(materialParameters.cspec_red,
         materialParameters.cspec_green,materialParameters.cspec_blue);
@@ -82,15 +81,6 @@ function init() {
         lightParameters.green * lightParameters.intensity,
         lightParameters.blue * lightParameters.intensity);
 
-
-
-
-    var lightParametersFrame = {
-        red: 1.0,
-        green: 1.0,
-        blue: 1.0,
-        intensity: .8,
-    }
 
     var materialParametersFrame = {
         cdiff_red: 0,
@@ -106,14 +96,13 @@ function init() {
         cspec:	{ type: "v3", value: new THREE.Vector3() },
         cdiff:	{ type: "v3", value: new THREE.Vector3() },
         roughness: {type: "f", value: 0.9},
-        pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-        pointLightPosition2:	{ type: "v3", value: new THREE.Vector3() },
+        pointLightPosition:	{ type: "v3[]", value: new Array(2) },
         clight:	{ type: "v3", value: new THREE.Vector3() },
     };
 
     // // control light position
-        uniformsFrame.pointLightPosition.value = new THREE.Vector3(7,7,7);
-        uniformsFrame.pointLightPosition2.value = new THREE.Vector3(-7,-7,-7);
+        uniformsFrame.pointLightPosition.value[0] = new THREE.Vector3(7,7,7);
+        uniformsFrame.pointLightPosition.value[1] = new THREE.Vector3(-7,-7,-7);
 
         uniformsFrame.cspec.value = new THREE.Vector3(materialParametersFrame.cspec_red,
         materialParametersFrame.cspec_green,materialParametersFrame.cspec_blue);
@@ -121,9 +110,9 @@ function init() {
         materialParametersFrame.cdiff_green,materialParametersFrame.cdiff_blue);
         uniformsFrame.roughness.value = materialParameters.roughness>0.0?materialParametersFrame.roughness:0.01;
         uniformsFrame.clight.value = new THREE.Vector3(
-        lightParametersFrame.red * lightParametersFrame.intensity,
-        lightParametersFrame.green * lightParametersFrame.intensity,
-        lightParametersFrame.blue * lightParametersFrame.intensity);
+        lightParameters.red * lightParameters.intensity,
+        lightParameters.green * lightParameters.intensity,
+        lightParameters.blue * lightParameters.intensity);
 
 
 

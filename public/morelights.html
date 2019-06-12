@@ -8,13 +8,13 @@ gl_Position = projectionMatrix * vPos;
 }
 </script><script type="text/x-glsl" id="fragment">varying vec3 vNormal;
 varying vec3 vPosition;
-uniform vec3 pointLightPosition; // in world space
-uniform vec3 pointLightPosition2; // in world space
+uniform vec3 pointLightPosition[2]; // in world space
 uniform vec3 clight;
 uniform vec3 cspec;
 uniform vec3 cdiff;
 uniform float roughness;
 const float PI = 3.14159;
+
 vec3 FSchlick(float lDoth) {
 	return (cspec + (vec3(1.0)-cspec)*pow(1.0 - lDoth,5.0));
 }
@@ -31,38 +31,29 @@ float GSmith(float nDotv, float nDotl) {
 		return G1(nDotl,k)*G1(nDotv,k);
 }
 void main() {
-	vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
-	vec4 l2Position = viewMatrix * vec4( pointLightPosition2, 1.0 );
-	vec3 l = normalize(lPosition.xyz - vPosition.xyz);
-	vec3 l2 = normalize(l2Position.xyz - vPosition.xyz);
-	vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
-	vec3 v = normalize( -vPosition);
-	vec3 h = normalize( v + l);
-	vec3 h2 = normalize( v + l2);
-	// small quantity to prevent divisions by 0
-	float nDotl = max(dot( n, l ),0.000001);
-	float lDoth = max(dot( l, h ),0.000001);
-	float nDoth = max(dot( n, h ),0.000001);
-	float vDoth = max(dot( v, h ),0.000001);
-	float nDotv = max(dot( n, v ),0.000001);
-
-	float nDotl2 = max(dot( n, l2 ),0.000001);
-	float l2Doth2 = max(dot( l2, h2 ),0.000001);
-	float nDoth2 = max(dot( n, h2 ),0.000001);
-	float vDoth2 = max(dot( v, h2 ),0.000001);
-	
-	vec3 fresnel = FSchlick(lDoth);
-	vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
+	vec3 outRadiance[2];
+	for(int i=0; i<2; i++) {
+		vec4 lPosition = viewMatrix * vec4( pointLightPosition[i], 1.0 );
+		vec3 l = normalize(lPosition.xyz - vPosition.xyz);
+		vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+		vec3 v = normalize( -vPosition);
+		vec3 h = normalize( v + l);
+		// small quantity to prevent divisions by 0
+		float nDotl = max(dot( n, l ),0.000001);
+		float lDoth = max(dot( l, h ),0.000001);
+		float nDoth = max(dot( n, h ),0.000001);
+		float vDoth = max(dot( v, h ),0.000001);
+		float nDotv = max(dot( n, v ),0.000001);
+		vec3 fresnel = FSchlick(lDoth);
+		vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
 		(4.0*nDotl*nDotv);
-	vec3 outRadiance = PI* clight * nDotl * BRDF;
+		outRadiance[i] = PI* clight * nDotl * BRDF;
+	}
 
-	vec3 fresnel2 = FSchlick(l2Doth2);
-	vec3 BRDF2 = (vec3(1.0)-fresnel2)*cdiff/PI + fresnel2*GSmith(nDotv,nDotl2)*DGGX(nDoth2,roughness*roughness)/
-		(4.0*nDotl2*nDotv);
-	vec3 outRadiance2 = PI* clight * nDotl2 * BRDF2;
-
-	vec3 outRadianceF = outRadiance + outRadiance2;
-
+	vec3 outRadianceF;
+	for(int i=0; i<2; i++) {
+		outRadianceF = outRadianceF + outRadiance[i];
+	}
 
 	// gamma encode the final value
 	gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
