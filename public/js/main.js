@@ -46,22 +46,38 @@ function init() {
         red: 1.0,
         green: 1.0,
         blue: 1.0,
-        intensity: 1.5,
+        intensity: 1,
     }
-    var cdiff = {
-        red: 0.7,
-        green: 0.0,
-        blue: 0.0,
+    var materialParameters = {
+        cdiff_red: 0,
+        cdiff_green: 0,
+        cdiff_blue: 0,
+        cspec_red: 212/255,
+        cspec_green: 175/255,
+        cspec_blue: 55/255,
+        roughness: .6
     }
 
     var uniforms = {
-        cdiff:	{ type: "v3", value: new THREE.Vector3(1, 0, 0) }, // diffuse color
-        pointLightPosition:	{ type: "v3", value: new THREE.Vector3() }, // light position
-        clight:	{ type: "v3", value: new THREE.Vector3(1,1,1) }, // light color
+        cspec:	{ type: "v3", value: new THREE.Vector3() },
+        cdiff:	{ type: "v3", value: new THREE.Vector3() },
+        roughness: {type: "f", value: 0.5},
+        pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
+        clight:	{ type: "v3", value: new THREE.Vector3() },
     };
 
     // control light position
     uniforms.pointLightPosition.value = new THREE.Vector3(7,7,7);
+
+    uniforms.cspec.value = new THREE.Vector3(materialParameters.cspec_red,
+        materialParameters.cspec_green,materialParameters.cspec_blue);
+uniforms.cdiff.value = new THREE.Vector3(materialParameters.cdiff_red,
+        materialParameters.cdiff_green,materialParameters.cdiff_blue);
+uniforms.roughness.value = materialParameters.roughness>0.0?materialParameters.roughness:0.01;
+uniforms.clight.value = new THREE.Vector3(
+    lightParameters.red * lightParameters.intensity,
+lightParameters.green * lightParameters.intensity,
+    lightParameters.blue * lightParameters.intensity);
 
     tablet = new Tablet('./assets/tablet-groups.obj');
     tablet.loadObject((event)=> {
