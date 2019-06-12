@@ -1,0 +1,135 @@
+head
+	link(rel="stylesheet", href="/css/main.css")
+	script(src="./js/lib/three.min.js")
+	script(src="./js/lib/OrbitControls.js")
+	script(src="./js/lib/LoaderSupport.js")
+	script(src="./js/lib/OBJLoader2.js")
+body
+	script(type="text/x-glsl", id="vertex").
+		varying vec3 vNormal;		
+		varying vec3 vPosition;
+		void main() {
+		vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
+		vPosition = vPos.xyz;
+		vNormal = normalMatrix * normal;
+		gl_Position = projectionMatrix * vPos;
+		}
+
+	script(type="text/x-glsl", id="fragment").
+		varying vec3 vNormal;
+		varying vec3 vPosition;
+		uniform vec3 pointLightPosition; // in world space
+		uniform vec3 pointLightPosition2; // in world space
+		uniform vec3 clight;
+		uniform vec3 cspec;
+		uniform vec3 cdiff;
+		uniform float roughness;
+		const float PI = 3.14159;
+		vec3 FSchlick(float lDoth) {
+			return (cspec + (vec3(1.0)-cspec)*pow(1.0 - lDoth,5.0));
+		}
+		float DGGX(float nDoth, float alpha) {
+			float alpha2 = alpha*alpha;
+			float d = nDoth*nDoth*(alpha2-1.0)+1.0;
+			return (  alpha2 / (PI*d*d));
+		}
+		float G1(float dotProduct, float k) {
+			return (dotProduct / (dotProduct*(1.0-k) + k) );
+		}
+		float GSmith(float nDotv, float nDotl) {
+				float k = roughness*roughness;
+				return G1(nDotl,k)*G1(nDotv,k);
+		}
+		void main() {
+			vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
+			vec4 l2Position = viewMatrix * vec4( pointLightPosition2, 1.0 );
+			vec3 l = normalize(lPosition.xyz - vPosition.xyz);
+			vec3 l2 = normalize(l2Position.xyz - vPosition.xyz);
+			vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+			vec3 v = normalize( -vPosition);
+			vec3 h = normalize( v + l);
+			vec3 h2 = normalize( v + l2);
+			// small quantity to prevent divisions by 0
+			float nDotl = max(dot( n, l ),0.000001);
+			float lDoth = max(dot( l, h ),0.000001);
+			float nDoth = max(dot( n, h ),0.000001);
+			float vDoth = max(dot( v, h ),0.000001);
+			float nDotv = max(dot( n, v ),0.000001);
+
+			float nDotl2 = max(dot( n, l2 ),0.000001);
+			float l2Doth2 = max(dot( l2, h2 ),0.000001);
+			float nDoth2 = max(dot( n, h2 ),0.000001);
+			float vDoth2 = max(dot( v, h2 ),0.000001);
+			
+			vec3 fresnel = FSchlick(lDoth);
+			vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
+				(4.0*nDotl*nDotv);
+			vec3 outRadiance = PI* clight * nDotl * BRDF;
+
+			vec3 fresnel2 = FSchlick(l2Doth2);
+			vec3 BRDF2 = (vec3(1.0)-fresnel2)*cdiff/PI + fresnel2*GSmith(nDotv,nDotl2)*DGGX(nDoth2,roughness*roughness)/
+				(4.0*nDotl2*nDotv);
+			vec3 outRadiance2 = PI* clight * nDotl2 * BRDF2;
+
+			vec3 outRadianceF = outRadiance + outRadiance2;
+
+
+			// gamma encode the final value
+			gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
+		}
+	
+	.navbar-fixed
+	nav
+		.nav-wrapper
+			a.brand-logo(href='#!')
+				img.responsive-img(src="images/logo.png", alt="ACME")
+			ul.right.hide-on-med-and-down
+				li
+					a(href='#') About
+				li
+					a(href='#') Shop
+				li
+					a(href="#") Help
+				li
+					a.btn Shopping Cart
+	.main
+		.row.configurator   
+			.row.title
+				.pad
+					h3 ACMEpad
+				.reviews
+					h6 5 Reviews
+			.col.m8.s12.object
+				#threejs-container
+				
+			.col.m4.s12.prop
+				.row.prop-title
+					h6 FRONT 
+						span Silver
+				.row.prop-images
+					.col.s3.selection.active
+						img.responsive-img(src="/images/silver.jpg", alt="Silver")
+					.col.s3.selection
+						img.responsive-img(src="/images/default.jpg", alt="White")
+					.col.s3.selection
+						img.responsive-img(src="/images/default.jpg", alt="Black")
+				.row.prop-title
+					h6 BACK 
+						span Leather
+				.row.prop-images
+					.col.s3.selection(material-id="plastic")
+						img.responsive-img(src="/images/gold.jpg", alt="Plastic")
+					.col.s3.selection.active
+						img.responsive-img(src="/images/default.jpg", alt="Leather")
+					.col.s3.selection
+						img.responsive-img(src="/images/default.jpg", alt="Metal")
+				.row.prop-text
+					p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error fugiat repudiandae totam temporibus nesciunt fugit dicta sit et pariatur incidunt distinctio illum sunt.
+					p Similique ipsa incidunt atque molestiae dignissimos repudiandae, quo sequi facere ut quas. Magnam totam nobis voluptatibus! Quisquam.
+				.row.cart.valign-wrapper
+					.col.s6
+						h5.price $1200
+					.col.s6
+						a.btn Add to cart
+	script(src="./js/Tablet.js")
+	script(src="./js/morelights.js")
