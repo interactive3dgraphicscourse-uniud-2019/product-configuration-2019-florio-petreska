@@ -126,7 +126,7 @@ function init() {
 
 
 
-    tablet = new Tablet('./assets/tablet-groups.obj');
+    tablet = new Tablet('./assets/tablet-groups-1.obj');
     tablet.loadObject((event)=> {
         tablet.loaded(event);
         tablet.addToScene(scene);
@@ -147,7 +147,7 @@ function init() {
 function update() {
     if(tablet.isReady()) {
         let backMaterial = new THREE.MeshBasicMaterial({color: 0xff0000})
-        let frameMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00})
+        //let frameMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00})
         tablet.changeMaterial(BACK, ourMaterial);
         tablet.changeMaterial(FRAME, frameMaterial);
         tablet.rotatePosition();
