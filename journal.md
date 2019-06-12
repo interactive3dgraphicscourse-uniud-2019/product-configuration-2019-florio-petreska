@@ -75,5 +75,6 @@ Abbiamo iniziato ad assegnare qualche materiale al tablet partendo dal shader co
 
 Abbiamo fatto una ricerca online per vedere quale è il modo migliore per l'illuminazione della fotografia di prodotto nella vita reale. Di solito vengono utilizzati 3 tipi di illuminazione, principale, backlight e luci di riempimento (spesso utilizzate 2).
 La luce principale deve essere posizionata davanti o sulla parte superiore, spesso leggermente di lato, del prodotto, mentre la retroilluminazione è sul lato opposto, sul retro. Le luci di riempimento sono posizionate sui lati.
+
 ![](images/lightPos.jpg)
 ![](images/lightPos1.jpg)
