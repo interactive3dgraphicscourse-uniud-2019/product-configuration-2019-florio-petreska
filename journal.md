@@ -69,3 +69,6 @@ Dopodichè abbiamo caricato il tablet nel container apposito sulla interfaccia, 
 ![](images/tablet-colors1.png)
 
 Infine abbiamo provato a riutilizzare il codice dello shader lambertiano visto a lezione per assegnare un nuovo materiale elaborato con lo shader alla scocca del nostro ACMEpad
+
+## 11/06/2019
+Abbiamo iniziato ad assegnare qualche materiale al tablet partendo dal shader combinato e speso molto tempo a cercare di tenere ferma la luce e girare solo l'oggetto, con scarso successo.
