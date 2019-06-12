@@ -15,7 +15,7 @@ class Tablet {
             this.frame = event.detail.loaderRootNode.children[1];
             this.screen = event.detail.loaderRootNode.children[2];
             this.back = event.detail.loaderRootNode.children[3];
-            console.log(this.back);
+           // console.log(this.back);
             this.pivot.add(this.logo);
             this.pivot.add(this.frame);
             this.pivot.add(this.screen);
