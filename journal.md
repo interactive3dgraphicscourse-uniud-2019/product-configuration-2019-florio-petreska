@@ -92,3 +92,6 @@ Lo shader combinato è stato modificato per accettare in input un solo colore e 
 
 ## 14/06/2019
 Sono stati creati diversi materiali ed è stato implementato un meccanismo per cambiare tali materiali tramite l'interfaccia grafica.
+
+https://3dtextures.me/2019/04/25/wood-wicker-003/
+
