@@ -95,3 +95,5 @@ Sono stati creati diversi materiali ed è stato implementato un meccanismo per c
 
 https://3dtextures.me/2019/04/25/wood-wicker-003/
 
+è stato integrato lo shader per la gestione delle textures ed è stato modificato per poter gestire più luci e una sola mappa di colore e il parametro metalness.
+
