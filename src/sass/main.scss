@@ -50,11 +50,13 @@ nav {
                 }
             }
             &-images{
+                
                 .active img {
                     border: 2px solid $secondary-color;
                 }
                 img {
                     border-radius: 5%;
+                    cursor: pointer;
                 }
             }
         }

@@ -69,3 +69,26 @@ Dopodichè abbiamo caricato il tablet nel container apposito sulla interfaccia, 
 ![](images/tablet-colors1.png)
 
 Infine abbiamo provato a riutilizzare il codice dello shader lambertiano visto a lezione per assegnare un nuovo materiale elaborato con lo shader alla scocca del nostro ACMEpad
+
+## 11/06/2019
+Abbiamo iniziato ad assegnare qualche materiale al tablet partendo dal shader combinato e speso molto tempo a cercare di tenere ferma la luce e girare solo l'oggetto, con scarso successo.
+
+Abbiamo fatto una ricerca online per vedere quale è il modo migliore per l'illuminazione della fotografia di prodotto nella vita reale. Di solito vengono utilizzati 3 tipi di illuminazione, principale, backlight e luci di riempimento (spesso utilizzate 2).
+La luce principale deve essere posizionata davanti o sulla parte superiore, spesso leggermente di lato, del prodotto, mentre la retroilluminazione è sul lato opposto, sul retro. Le luci di riempimento sono posizionate sui lati.
+
+![](images/lightPos.jpg)
+![](images/lightPos2.jpg)
+
+## 12/06/2019
+Abbiamo cambiato lo shader per poter essere in grado di accetare più luci.
+
+![](images/tablet-light1.png)
+![](images/tablet-light3.png)
+![](images/tablet-light2.png)
+![](images/tablet-light4.png)
+
+## 13/06/2019
+Lo shader combinato è stato modificato per accettare in input un solo colore e un certo livello di metalness.
+
+## 14/06/2019
+Sono stati creati diversi materiali ed è stato implementato un meccanismo per cambiare tali materiali tramite l'interfaccia grafica.
