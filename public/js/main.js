@@ -1,7 +1,7 @@
-let controls, tablet, vs, fs, ourMaterial, aoMap, normalMap;
+let controls, tablet, vs, fs, backMaterial, frameMaterial, frameMaterials, backMaterials;
+const numLights = 3;
 const BACK = 0;
 const FRAME = 1;
-
 
 function init() {
 
@@ -42,21 +42,15 @@ function init() {
         metalness: 1
     }
 
-    var normalMap = loadTexture( "/images/normal.jpg" );
-    var aoMap = loadTexture("/images/ao.jpg");
-
-
     var uniforms = {
-        cspec:	{ type: "v3", value: new THREE.Vector3(0.04,0.04,0.04) },
-        cdiff:	{ type: "v3", value: new THREE.Vector3(0.8,0.8,0.8) },
-        roughness: {type: "f", value: 0.2},
-          normalMap:	{ type: "t", value: normalMap},
-            aoMap:	{ type: "t", value: aoMap},
-            normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-            pointLightPosition:	{ type: "v3", value: new THREE.Vector3() },
-            clight:	{ type: "v3", value: new THREE.Vector3() },
-            ambientLight:	{ type: "v3", value: new THREE.Vector3() },
-        };
+        c:	{ type: "v3", value: new THREE.Vector3() },
+        roughness: {type: "f", value: 0.5},
+        //numberOfLights: numLights,
+        metalness: {type: "f", value: 0.5},
+        pointLightsPosition:	{ type: "v3[]", value: new Array(3) },
+        clight:	{ type: "v3", value: new THREE.Vector3() },
+
+    };
 
     /* materials setup */
 
@@ -206,24 +200,23 @@ function init() {
         tablet.addToScene(scene);
     });
 
-    function loadTexture(file) {
-        var texture = new THREE.TextureLoader().load( file , function ( texture ) {
-            texture.minFilter = THREE.LinearMipMapLinearFilter;
-            texture.anisotropy = renderer.getMaxAnisotropy();
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-              texture.offset.set( 0, 0 );
-            texture.needsUpdate = true;
-            render();
-        } )
-        return texture;
-}
-
    
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
-    ourMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs });
-    ourMaterial.vertexTangents = true;
-	ourMaterial.needsUpdate = true;
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs });
+    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs });
+    
+    frameMaterials = [
+        new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uWhitePlastic, vertexShader: vs, fragmentShader: fs })
+    ] 
+
+    backMaterials = [
+        new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uRoseGold, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uBlackPlasticOpaque, vertexShader: vs, fragmentShader: fs })
+        
+    ] 
     
 
 }
