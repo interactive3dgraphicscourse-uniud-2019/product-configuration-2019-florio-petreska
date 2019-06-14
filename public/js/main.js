@@ -18,37 +18,22 @@ function init() {
     controls = new THREE.OrbitControls(camera, container);
     controls.target.set(0, 0, 0);
 
-    var sphereMaterial = new THREE.MeshBasicMaterial({color:0xff0000});
-			
-    /* sphere = new THREE.Mesh(
-        new THREE.SphereGeometry( 1,0,0 ),
-        sphereMaterial );
-        
-
-    scene.add( sphere ); */
-    {
-        const skyColor = 0xB1E1FF;  // light blue
-        const groundColor = 0xB97A20;  // brownish orange
-        const intensity = 1;
-        const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
-        scene.add(light);
-    }
-    {
-        const color = 0xFFFFFF;
-        const intensity = 1;
-        const light = new THREE.DirectionalLight(color, intensity);
-        light.position.set(0, 10, 0);
-        light.target.position.set(-5, 0, 0);
-        scene.add(light);
-        scene.add(light.target);
-    }
-
+    /* lights setup */
     var lightParameters = {
         red: 1.0,
         green: 1.0,
         blue: 1.0,
-        intensity: 1,
+        intensity: 2,
     }
+
+    var lightsPosition = [
+        new THREE.Vector3(-5, 5,0),
+        new THREE.Vector3(5,5,0),
+        new THREE.Vector3(0, 5, -1),
+    ]
+
+    //uniforms.pointLightsPosition.value = lightsPosition;
+
     var materialParameters = {
         c_red: 212/255,
         c_green: 175/255,
@@ -67,25 +52,105 @@ function init() {
 
     };
 
-    var lightsPosition = [
-        new THREE.Vector3(-5, 5,0),
-        new THREE.Vector3(5,5,0),
-        new THREE.Vector3(0, 5, -1),
-    ]
+    /* materials setup */
 
-    // control light position
-    uniforms.pointLightsPosition.value = lightsPosition;
-    uniforms.c.value = new THREE.Vector3(materialParameters.c_red,
-    materialParameters.c_green,materialParameters.c_blue);
-    uniforms.roughness.value = materialParameters.roughness;
-    uniforms.metalness.value = materialParameters.metalness;
-    uniforms.clight.value = new THREE.Vector3(
-        lightParameters.red * lightParameters.intensity,
-        lightParameters.green * lightParameters.intensity,
-        lightParameters.blue * lightParameters.intensity
-    );
+    // (SHINY) PLASTIC
+    let plasticParameters = {
+        roughness: 0.2,
+        metalness: 0
+    }
+
+    // plastic colors
+    let black = new THREE.Vector3(.01, .01, .01);
+    let uBlackPlastic = {
+        c:	{ type: "v3", value: black },
+        roughness: {type: "f", value: plasticParameters.roughness },
+        metalness: {type: "f", value: plasticParameters.metalness },
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+    }
+
+    let white = new THREE.Vector3(1, 1, 1);
+    let uWhitePlastic = {
+        c:	{ type: "v3", value: white },
+        roughness: {type: "f", value: plasticParameters.roughness },
+        metalness: {type: "f", value: plasticParameters.metalness },
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+    }
 
 
+    // (OPAQUE) PLASTIC
+    let opaquePlasticParameters = {
+        roughness: 0.9,
+        metalness: 0
+    }
+
+    let darkGrey = new THREE.Vector3(.05, .05, .05);
+    let uBlackPlasticOpaque = {
+        c:	{ type: "v3", value: darkGrey },
+        roughness: {type: "f", value: opaquePlasticParameters.roughness },
+        metalness: {type: "f", value: opaquePlasticParameters.metalness },
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+    }
+
+
+    // METALS
+    let metalParameters = {
+        roughness: 0.4,
+        metalness: 1
+    }  
+
+    // metals colors
+    let gold = new THREE.Vector3(212/255, 175/255, 55/255);
+    let roseGold = new THREE.Vector3(184/255, 107/255, 119/255);
+
+    let uGold = {
+        c:	{ type: "v3", value: gold },
+        roughness: {type: "f", value: metalParameters.roughness },
+        metalness: {type: "f", value: metalParameters.metalness },
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+    }
+
+    let uRoseGold = {
+        c:	{ type: "v3", value: roseGold },
+        roughness: {type: "f", value: metalParameters.roughness },
+        metalness: {type: "f", value: metalParameters.metalness },
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+    }
     /* var materialParametersFrame = {
         c_red: 192/255,
         c_green: 192/255,
@@ -138,17 +203,18 @@ function init() {
    
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
-    backMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs });
-    frameMaterial = new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs });
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs });
+    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs });
     
     frameMaterials = [
-        new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs })
+        new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uWhitePlastic, vertexShader: vs, fragmentShader: fs })
     ] 
 
     backMaterials = [
-        new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs })
+        new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uRoseGold, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uBlackPlasticOpaque, vertexShader: vs, fragmentShader: fs })
         
     ] 
     
