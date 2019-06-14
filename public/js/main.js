@@ -1,4 +1,4 @@
-let controls, tablet, vs, fs, ourMaterial, frameMaterial;
+let controls, tablet, vs, fs, backMaterial, frameMaterial, frameMaterials, backMaterials;
 const numLights = 3;
 const BACK = 0;
 const FRAME = 1;
@@ -138,8 +138,19 @@ function init() {
    
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
-    ourMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs });
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs });
     frameMaterial = new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs });
+    
+    frameMaterials = [
+        new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs })
+    ] 
+
+    backMaterials = [
+        new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uniformsFrame, vertexShader: vs, fragmentShader: fs })
+        
+    ] 
     
 
 }
@@ -149,7 +160,7 @@ function init() {
 
 function update() {
     if(tablet.isReady()) {
-        tablet.changeMaterial(BACK, ourMaterial);
+        tablet.changeMaterial(BACK, backMaterial);
         tablet.changeMaterial(FRAME, frameMaterial);
         tablet.rotatePosition();
         
@@ -165,30 +176,34 @@ init();
 
 update();
 
-let changeMaterial = (e) => {
-    console.log(e);
+let changeMaterial = (code) => {
+    code = code.split("-");
+    console.log(parseInt(code[1]))
+    if(code[0]=="f"){
+        frameMaterial = frameMaterials[parseInt(code[1])-1];
+    }
+    if(code[0] == "b"){
+        backMaterial = backMaterials[parseInt(code[1])-1];
+    }
+
+    update();
 }
 
 
 //click listener
 document.addEventListener('click', function (event) {
-
-    console.log("event")
-
 	// If the clicked element doesn't have the right selector, bail
 	if (!event.target.parentNode.matches('.prop-images .selection')) return;
 
 	// Don't follow the link
 	event.preventDefault();
 
+    changeMaterial(event.target.parentNode.getAttribute("data-value"))
     // Log the clicked element in the console
     let children = event.target.parentNode.parentNode.children
-    console.log(children)
     for(let i=0; i<children.length; i++) {
-        console.log(children[i])
-            children[i].classList.remove("active")   
+        children[i].classList.remove("active")   
     }
-    console.log(event.target.parentNode.getAttribute("data-value"));
     event.target.parentNode.classList.add("active")
 
 }, false);
