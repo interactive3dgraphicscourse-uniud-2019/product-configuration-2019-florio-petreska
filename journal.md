@@ -86,8 +86,3 @@ Abbiamo cambiato lo shader per poter essere in grado di accetare più luci.
 ![](images/tablet-light3.png)
 ![](images/tablet-light2.png)
 ![](images/tablet-light4.png)
-
-## 13/06/2019
-Lo shader combinato è stato modificato per accettare in input un solo colore e un certo livello di metalness.7
-
-## 14/06/2019
