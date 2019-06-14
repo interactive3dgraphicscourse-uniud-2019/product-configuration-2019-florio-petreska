@@ -50,59 +50,62 @@ function init() {
         intensity: 1,
     }
     var materialParameters = {
-        cdiff_red: 0,
-        cdiff_green: 0,
-        cdiff_blue: 0,
-        cspec_red: 212/255,
-        cspec_green: 175/255,
-        cspec_blue: 55/255,
-        roughness: .6
+        c_red: 212/255,
+        c_green: 175/255,
+        c_blue: 55/255,
+        roughness: 0.5,
+        metalness: 1
     }
 
     var uniforms = {
-        cspec:	{ type: "v3", value: new THREE.Vector3() },
-        cdiff:	{ type: "v3", value: new THREE.Vector3() },
+        c:	{ type: "v3", value: new THREE.Vector3() },
         roughness: {type: "f", value: 0.5},
         //numberOfLights: numLights,
+        metalness: {type: "f", value: 0.5},
         pointLightsPosition:	{ type: "v3[]", value: new Array(3) },
         clight:	{ type: "v3", value: new THREE.Vector3() },
 
     };
 
     var lightsPosition = [
-        new THREE.Vector3(-5,5,0),
+        new THREE.Vector3(-5, 5,0),
         new THREE.Vector3(5,5,0),
-        new THREE.Vector3(0,-3,0),
-        new THREE.Vector3(0,0,-6),
+        new THREE.Vector3(0, 5, -1),
     ]
 
     // control light position
     uniforms.pointLightsPosition.value = lightsPosition;
-        uniforms.cspec.value = new THREE.Vector3(materialParameters.cspec_red,
-        materialParameters.cspec_green,materialParameters.cspec_blue);
-        uniforms.cdiff.value = new THREE.Vector3(materialParameters.cdiff_red,
-        materialParameters.cdiff_green,materialParameters.cdiff_blue);
-        uniforms.roughness.value = materialParameters.roughness>0.0?materialParameters.roughness:0.01;
-        uniforms.clight.value = new THREE.Vector3(
+    uniforms.c.value = new THREE.Vector3(materialParameters.c_red,
+    materialParameters.c_green,materialParameters.c_blue);
+    uniforms.roughness.value = materialParameters.roughness;
+    uniforms.metalness.value = materialParameters.metalness;
+    uniforms.clight.value = new THREE.Vector3(
         lightParameters.red * lightParameters.intensity,
         lightParameters.green * lightParameters.intensity,
-        lightParameters.blue * lightParameters.intensity);
+        lightParameters.blue * lightParameters.intensity
+    );
 
+
+    /* var materialParametersFrame = {
+        c_red: 192/255,
+        c_green: 192/255,
+        c_blue: 192/255,
+        roughness: 1,
+        metalness: 0.1
+    } */
 
     var materialParametersFrame = {
-        cdiff_red: 0,
-        cdiff_green: 0,
-        cdiff_blue: 0,
-        cspec_red: 192/255,
-        cspec_green: 192/255,
-        cspec_blue: 192/255,
-        roughness: .7
+        c_red: 5/255,
+        c_green: 5/255,
+        c_blue: 5/255,
+        roughness: .2,
+        metalness: 0
     }
 
     var uniformsFrame = {
-        cspec:	{ type: "v3", value: new THREE.Vector3() },
-        cdiff:	{ type: "v3", value: new THREE.Vector3() },
+        c:	{ type: "v3", value: new THREE.Vector3() },
         roughness: {type: "f", value: 0.9},
+        metalness: {type: "f", value: 0.9},
         //numberOfLights: numLights,
         pointLightsPosition: { type: "v3[]", value: new Array(3) },
         clight:	{ type: "v3", value: new THREE.Vector3() },
@@ -111,11 +114,10 @@ function init() {
     // // control light position
         uniformsFrame.pointLightsPosition.value = lightsPosition;
 
-        uniformsFrame.cspec.value = new THREE.Vector3(materialParametersFrame.cspec_red,
-        materialParametersFrame.cspec_green,materialParametersFrame.cspec_blue);
-        uniformsFrame.cdiff.value = new THREE.Vector3(materialParametersFrame.cdiff_red,
-        materialParametersFrame.cdiff_green,materialParametersFrame.cdiff_blue);
-        uniformsFrame.roughness.value = materialParameters.roughness>0.0?materialParametersFrame.roughness:0.01;
+        uniformsFrame.c.value = new THREE.Vector3(materialParametersFrame.c_red,
+        materialParametersFrame.c_green,materialParametersFrame.c_blue);
+        uniformsFrame.roughness.value = materialParametersFrame.roughness;
+        uniformsFrame.metalness.value = materialParametersFrame.metalness;
         uniformsFrame.clight.value = new THREE.Vector3(
         lightParameters.red * lightParameters.intensity,
         lightParameters.green * lightParameters.intensity,
@@ -147,8 +149,6 @@ function init() {
 
 function update() {
     if(tablet.isReady()) {
-        let backMaterial = new THREE.MeshBasicMaterial({color: 0xff0000})
-        //let frameMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00})
         tablet.changeMaterial(BACK, ourMaterial);
         tablet.changeMaterial(FRAME, frameMaterial);
         tablet.rotatePosition();
@@ -164,3 +164,31 @@ function update() {
 init();
 
 update();
+
+let changeMaterial = (e) => {
+    console.log(e);
+}
+
+
+//click listener
+document.addEventListener('click', function (event) {
+
+    console.log("event")
+
+	// If the clicked element doesn't have the right selector, bail
+	if (!event.target.parentNode.matches('.prop-images .selection')) return;
+
+	// Don't follow the link
+	event.preventDefault();
+
+    // Log the clicked element in the console
+    let children = event.target.parentNode.parentNode.children
+    console.log(children)
+    for(let i=0; i<children.length; i++) {
+        console.log(children[i])
+            children[i].classList.remove("active")   
+    }
+    console.log(event.target.parentNode.getAttribute("data-value"));
+    event.target.parentNode.classList.add("active")
+
+}, false);
