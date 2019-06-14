@@ -146,11 +146,14 @@ function init() {
     // COMBINED
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
-
+    //TEXTURES
+    tvs = document.getElementById("vertex-textures").textContent;
+    tfs = document.getElementById("fragment-textures").textContent;
 
     /* scene initialization */
     backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs });
     frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs });
+    
     
     frameMaterials = [
         new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
