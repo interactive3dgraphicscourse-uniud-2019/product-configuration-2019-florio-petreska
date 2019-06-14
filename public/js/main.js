@@ -1,4 +1,4 @@
-let controls, tablet, vs, fs, backMaterial, frameMaterial, frameMaterials, backMaterials;
+let controls, tablet, vs, fs, tvs, tfs, backMaterial, frameMaterial, frameMaterials, backMaterials;
 const numLights = 3;
 const BACK = 0;
 const FRAME = 1;
@@ -134,8 +134,31 @@ function init() {
         },
     }
 
+    /* textured materials */
+
+    let textureParameters = {
+        material: "wood_wicker",
+        metalness: 0,
+    }
+    let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_basecolor.jpg" );
+    let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_roughness.jpg" );
+    let uniforms = {
+        diffuseMap: { type: "t", value: diffuseMap},
+        metalness: {type: "f", value: textureParameters.metalness },
+        roughnessMap:	{ type: "t", value: roughnessMap},
+        pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
+        clight:	{ type: "v3", 
+            value: new THREE.Vector3(
+                lightParameters.red * lightParameters.intensity,
+                lightParameters.green * lightParameters.intensity,
+                lightParameters.blue * lightParameters.intensity
+            ) 
+        },
+        textureRepeat: { type: "v2", value: new THREE.Vector2(5,5) }
+    };
+
     /* Tablet loader */
-    tablet = new Tablet('./assets/tablet-groups-1.obj');
+    tablet = new Tablet('./assets/tablet-groups-2.obj');
     tablet.loadObject((event)=> {
         tablet.loaded(event);
         tablet.addToScene(scene);
@@ -146,29 +169,42 @@ function init() {
     // COMBINED
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
+    // TEXTURES
+    tvs = document.getElementById("vertex-textures").textContent;
+    tfs = document.getElementById("fragment-textures").textContent;
 
 
     /* scene initialization */
-    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs });
-    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs });
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: tvs, fragmentShader: tfs }),
+    frameMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: tvs, fragmentShader: tfs })
     
     frameMaterials = [
         new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uWhitePlastic, vertexShader: vs, fragmentShader: fs })
+        new THREE.ShaderMaterial({ uniforms: uWhitePlastic, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uBlackPlasticOpaque, vertexShader: vs, fragmentShader: fs })
+        
     ] 
 
     backMaterials = [
         new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
         new THREE.ShaderMaterial({ uniforms: uRoseGold, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uBlackPlasticOpaque, vertexShader: vs, fragmentShader: fs })
-        
+        new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: tvs, fragmentShader: tfs }),
     ] 
     
 
 }
 
-
-
+function loadTexture(file) {
+    var texture = new THREE.TextureLoader().load( file , function ( texture ) {
+        texture.minFilter = THREE.LinearMipMapLinearFilter;
+        texture.anisotropy = renderer.getMaxAnisotropy();
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.offset.set( 0, 0 );
+        texture.needsUpdate = true;
+        update();
+    } )
+    return texture;
+}
 
 function update() {
     if(tablet.isReady()) {
