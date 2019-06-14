@@ -17,7 +17,7 @@ const float PI = 3.14159;
 const int numberOfLights = 3;
 
 vec3 FSchlick(float lDoth) {
-	return (c + (vec3(1.0)-c)*pow(1.0 - lDoth,5.0));
+	return (vec3(max(metalness, 0.04))*c + (vec3(1.0)-vec3(max(metalness, 0.04))*c)*pow(1.0 - lDoth,5.0));
 }
 float DGGX(float nDoth, float alpha) {
 	float alpha2 = alpha*alpha;
@@ -49,8 +49,7 @@ void main() {
 		float vDoth = max(dot( v, h ),0.000001);
 		float nDotv = max(dot( n, v ),0.000001);
 		vec3 fresnel = FSchlick(lDoth);
-		vec3 BRDF = (vec3(1.0)-vec3(metalness))*c/PI + vec3(max(metalness, 0.02))*fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
-		(4.0*nDotl*nDotv);
+		vec3 BRDF = vec3(1.0-metalness)*c/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness) / (4.0*nDotl*nDotv);
 		outRadiance[i] = PI* clight * nDotl * BRDF;
 	}
 

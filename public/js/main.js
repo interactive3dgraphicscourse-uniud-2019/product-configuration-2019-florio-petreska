@@ -70,9 +70,10 @@ function init() {
     };
 
     var lightsPosition = [
-        new THREE.Vector3(-5,-5,0),
+        new THREE.Vector3(-5,5,0),
         new THREE.Vector3(5,5,0),
         new THREE.Vector3(0,-3,0),
+        new THREE.Vector3(0,0,-6),
     ]
 
     // control light position
