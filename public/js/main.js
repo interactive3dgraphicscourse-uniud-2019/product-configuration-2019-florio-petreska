@@ -19,6 +19,7 @@ function init() {
     controls.target.set(0, 0, 0);
 
     /* lights setup */
+
     var lightParameters = {
         red: 1.0,
         green: 1.0,
@@ -32,25 +33,6 @@ function init() {
         new THREE.Vector3(0, 5, -1),
     ]
 
-    //uniforms.pointLightsPosition.value = lightsPosition;
-
-    var materialParameters = {
-        c_red: 212/255,
-        c_green: 175/255,
-        c_blue: 55/255,
-        roughness: 0.5,
-        metalness: 1
-    }
-
-    var uniforms = {
-        c:	{ type: "v3", value: new THREE.Vector3() },
-        roughness: {type: "f", value: 0.5},
-        //numberOfLights: numLights,
-        metalness: {type: "f", value: 0.5},
-        pointLightsPosition:	{ type: "v3[]", value: new Array(3) },
-        clight:	{ type: "v3", value: new THREE.Vector3() },
-
-    };
 
     /* materials setup */
 
@@ -151,58 +133,22 @@ function init() {
             ) 
         },
     }
-    /* var materialParametersFrame = {
-        c_red: 192/255,
-        c_green: 192/255,
-        c_blue: 192/255,
-        roughness: 1,
-        metalness: 0.1
-    } */
 
-    var materialParametersFrame = {
-        c_red: 5/255,
-        c_green: 5/255,
-        c_blue: 5/255,
-        roughness: .2,
-        metalness: 0
-    }
-
-    var uniformsFrame = {
-        c:	{ type: "v3", value: new THREE.Vector3() },
-        roughness: {type: "f", value: 0.9},
-        metalness: {type: "f", value: 0.9},
-        //numberOfLights: numLights,
-        pointLightsPosition: { type: "v3[]", value: new Array(3) },
-        clight:	{ type: "v3", value: new THREE.Vector3() },
-    };
-
-    // // control light position
-        uniformsFrame.pointLightsPosition.value = lightsPosition;
-
-        uniformsFrame.c.value = new THREE.Vector3(materialParametersFrame.c_red,
-        materialParametersFrame.c_green,materialParametersFrame.c_blue);
-        uniformsFrame.roughness.value = materialParametersFrame.roughness;
-        uniformsFrame.metalness.value = materialParametersFrame.metalness;
-        uniformsFrame.clight.value = new THREE.Vector3(
-        lightParameters.red * lightParameters.intensity,
-        lightParameters.green * lightParameters.intensity,
-        lightParameters.blue * lightParameters.intensity);
-
-
-
-
-
-
-
+    /* Tablet loader */
     tablet = new Tablet('./assets/tablet-groups-1.obj');
     tablet.loadObject((event)=> {
         tablet.loaded(event);
         tablet.addToScene(scene);
     });
 
-   
+
+    /* shaders retrieval */
+    // COMBINED
     vs = document.getElementById("vertex").textContent;
     fs = document.getElementById("fragment").textContent;
+
+
+    /* scene initialization */
     backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs });
     frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs });
     
