@@ -26,6 +26,17 @@ var lightsPosition = [
 ]
 let ambientLight = new THREE.Vector3(.2,.2,.2)
 
+var loader = new THREE.CubeTextureLoader();
+loader.setPath( 'textures/Studio/' );
+
+var textureCube = loader.load( [
+    'px.png', 'nx.png',
+    'py.png', 'ny.png',
+    'pz.png', 'nz.png'
+] );
+
+scene.background = textureCube;
+
 
 /* materials setup */
 
@@ -130,8 +141,8 @@ let uRoseGold = {
 
 let textureParameters = {
     //material: "Cloth2",
-    //material: "Tcom_Plastic_SpaceBlanketFolds",
-    material: "Wood_Wicker",
+    material: "Tcom_Plastic_SpaceBlanketFolds",
+    //material: "Wood_Wicker",
 }
 
 let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_Color.jpg" );
@@ -147,6 +158,7 @@ let textureUniforms = {
     normalMap:	{ type: "t", value: normalMap},
     aoMap:	{ type: "t", value: aoMap},
     ambientLight: {type:"v3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
