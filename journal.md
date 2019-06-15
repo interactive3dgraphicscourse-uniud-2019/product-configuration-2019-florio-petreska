@@ -106,5 +106,14 @@ Il codice è stato sistemato e reso più leggibile.
 
 È stata aggiunta una descrizione per il prodotto e le stelle del rating.
 
+![](images/textures.png)
+
+È satato modificato lo shader per accettare una normal map.
+
+![](images/normal-mapping.png)
+
+
+
+
 
 
