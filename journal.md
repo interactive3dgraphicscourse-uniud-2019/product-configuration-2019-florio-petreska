@@ -98,10 +98,13 @@ https://3dtextures.me/2019/04/25/wood-wicker-003/
 è stato integrato lo shader per la gestione delle textures ed è stato modificato per poter gestire più luci e una sola mappa di colore e il parametro metalness.
 
 ## 15/06/2019
-lo shader per le texture è stato modificato per prendere in input una mappa 2D di metalness e una mappa di colore.
+Lo shader per le texture è stato modificato per prendere in input una mappa 2D di metalness e una mappa di colore.
 
 Il codice è stato sistemato e reso più leggibile.
 
-è stato aggiunto il listener per il resize della finestra.
+È stato aggiunto il listener per il resize della finestra.
+
+È stata aggiunta una descrizione per il prodotto e le stelle del rating.
+
 
 
