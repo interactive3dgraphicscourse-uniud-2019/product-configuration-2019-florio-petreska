@@ -141,7 +141,7 @@ let textureUniforms = {
             lightParameters.blue * lightParameters.intensity
         ) 
     },
-    textureRepeat: { type: "v2", value: new THREE.Vector2(5,5) }
+    textureRepeat: { type: "v2", value: new THREE.Vector2(3,3) }
 };
 
 /* shaders retrieval */
