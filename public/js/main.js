@@ -10,6 +10,8 @@ scene = new THREE.Scene();
 renderer = new THREE.WebGLRenderer({ antialias: true });
 controls = new THREE.OrbitControls(camera, container);
 
+var stats = new Stats();
+
 /* lights setup */
 var lightParameters = {
     red: 1.0,
@@ -18,7 +20,7 @@ var lightParameters = {
     intensity: 2,
 }
 var lightsPosition = [
-    new THREE.Vector3(-5, 5,0),
+    new THREE.Vector3(-5, 5,-2),
     new THREE.Vector3(5,5,0),
     new THREE.Vector3(0, 5, -1),
 ]
@@ -121,8 +123,8 @@ let uRoseGold = {
 
 let textureParameters = {
     //material: "Cloth2",
-    //material: "Tcom_Plastic_SpaceBlanketFolds",
-    material: "Wood_Wicker",
+    material: "Tcom_Plastic_SpaceBlanketFolds",
+    //material: "Wood_Wicker",
 }
 let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_Color.jpg" );
 let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
@@ -141,7 +143,7 @@ let textureUniforms = {
             lightParameters.blue * lightParameters.intensity
         ) 
     },
-    textureRepeat: { type: "v2", value: new THREE.Vector2(3,3) }
+    textureRepeat: { type: "v2", value: new THREE.Vector2(5,5) }
 };
 
 /* shaders retrieval */
@@ -160,6 +162,10 @@ function init() {
     container.appendChild(renderer.domElement);
     controls.target.set(0, 0, 0);
 
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild( stats.domElement );
+    
     /* Tablet loader */
     tablet = new Tablet('./assets/tablet-groups-2.obj');
     tablet.loadObject((event)=> {
@@ -209,7 +215,7 @@ function update() {
     requestAnimationFrame(update);
     
     controls.update();
-    
+    stats.update();
     renderer.render(scene, camera);
 }
 
