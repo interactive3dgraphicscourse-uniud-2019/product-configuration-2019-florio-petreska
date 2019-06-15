@@ -1,4 +1,5 @@
 head
+	link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css") 
 	link(rel="stylesheet", href="/css/main.css")
 	script(src="./js/lib/three.min.js")
 	script(src="./js/lib/OrbitControls.js")
@@ -198,7 +199,13 @@ body
 				.pad
 					h3 ACMEpad
 				.reviews
-					h6 5 Reviews
+					h6 5 Reviews 
+						<span class="fa fa-star checked" style="color:gold"></span>
+						<span class="fa fa-star checked" style="color:gold"></span>
+						<span class="fa fa-star checked" style="color:gold"></span>
+						<span class="fa fa-star checked" style="color:gold"></span>
+						<span class="fa fa-star-half-full" style="color:gold"></span>
+
 			.col.m8.s12.object
 				#threejs-container
 				
@@ -224,8 +231,9 @@ body
 					.col.s3.selection(data-value ="b-03")
 						img.responsive-img(src="/images/b-03.png", alt="Matte Black")
 				.row.prop-text
-					p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error fugiat repudiandae totam temporibus nesciunt fugit dicta sit et pariatur incidunt distinctio illum sunt.
-					p Similique ipsa incidunt atque molestiae dignissimos repudiandae, quo sequi facere ut quas. Magnam totam nobis voluptatibus! Quisquam.
+					p Extraordinary performance, personalised design and immersive display, all packed together in ACMEpad that follows your own style.
+					p With its battery capacity of 36.71Wh that lasts up to 15 hours, you can enjoy playing your augmented reality games on-the-go, thanks to the A12X Bionic chip.
+					p Take it everywhere you go and show everybody your ultra lightweight, personalised ACMEpad.
 				.row.cart.valign-wrapper
 					.col.s6
 						h5.price $1200
