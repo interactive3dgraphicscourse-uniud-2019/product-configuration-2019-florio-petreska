@@ -112,7 +112,10 @@ Il codice è stato sistemato e reso più leggibile.
 
 ![](images/normal-mapping.png)
 
+Sono stati effettuati alcuni tentativi per integrare una height map per il displacement, ma con risultati scorretti e si è quindi deciso di rimanere con la sola normal map per il momento.
 
+![](images/displacement-attempts.png)
+![](images/displacement.png)
 
 
 
