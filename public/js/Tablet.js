@@ -19,7 +19,7 @@ class Tablet {
             this.back = event.detail.loaderRootNode.children[3];
             THREE.BufferGeometryUtils.computeTangents(this.back.geometry);
            // console.log(this.back);
-            this.pivot.add(this.logo);
+            //this.pivot.add(this.logo);
             this.pivot.add(this.frame);
             this.pivot.add(this.screen);
             this.pivot.add(this.back);
