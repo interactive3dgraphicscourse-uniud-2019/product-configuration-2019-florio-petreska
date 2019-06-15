@@ -11,16 +11,21 @@ class Tablet {
     }
 
     loaded(event) {
+            console.log(event.detail.loaderRootNode.children[0])
             this.logo = event.detail.loaderRootNode.children[0];
+            THREE.BufferGeometryUtils.computeTangents(this.logo.geometry);
             this.frame = event.detail.loaderRootNode.children[1];
             this.screen = event.detail.loaderRootNode.children[2];
             this.back = event.detail.loaderRootNode.children[3];
+            THREE.BufferGeometryUtils.computeTangents(this.back.geometry);
            // console.log(this.back);
             this.pivot.add(this.logo);
             this.pivot.add(this.frame);
             this.pivot.add(this.screen);
             this.pivot.add(this.back);
             this.ready = true;
+
+            
     }
 
     addToScene(scene) {

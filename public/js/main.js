@@ -120,16 +120,19 @@ let uRoseGold = {
 /* textured materials */
 
 let textureParameters = {
-    material: "Cloth2",
+    //material: "Cloth2",
     //material: "Tcom_Plastic_SpaceBlanketFolds",
+    material: "Wood_Wicker",
 }
-let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_color.jpg" );
+let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_Color.jpg" );
 let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
 let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_Roughness.jpg" );
+let normalMap = loadTexture( "textures/" + textureParameters.material + "_Normal.jpg" );
 let textureUniforms = {
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
+    normalMap:	{ type: "t", value: normalMap},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -222,6 +225,8 @@ let changeMaterial = (code) => {
     }
     if(code[0] == "b"){
         backMaterial = backMaterials[parseInt(code[1])-1];
+        backMaterial.vertexTangents = true;
+        //ourMaterial.needsUpdate = true;
     }
 
     update();
