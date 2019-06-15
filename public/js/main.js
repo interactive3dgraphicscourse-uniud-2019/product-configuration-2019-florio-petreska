@@ -24,6 +24,8 @@ var lightsPosition = [
     new THREE.Vector3(5,5,0),
     new THREE.Vector3(0, 5, -1),
 ]
+let ambientLight = new THREE.Vector3(.2,.2,.2)
+
 
 /* materials setup */
 
@@ -39,6 +41,7 @@ let uBlackPlastic = {
     roughness: {type: "f", value: plasticParameters.roughness },
     metalness: {type: "f", value: plasticParameters.metalness },
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+    ambientLight: {type:"vec3", value: ambientLight},
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
             lightParameters.red * lightParameters.intensity,
@@ -53,6 +56,7 @@ let uWhitePlastic = {
     c:	{ type: "v3", value: white },
     roughness: {type: "f", value: plasticParameters.roughness },
     metalness: {type: "f", value: plasticParameters.metalness },
+    ambientLight: {type:"vec3", value: ambientLight},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -73,6 +77,7 @@ let uBlackPlasticOpaque = {
     c:	{ type: "v3", value: darkGrey },
     roughness: {type: "f", value: opaquePlasticParameters.roughness },
     metalness: {type: "f", value: opaquePlasticParameters.metalness },
+    ambientLight: {type:"vec3", value: ambientLight},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -96,6 +101,7 @@ let uGold = {
     c:	{ type: "v3", value: gold },
     roughness: {type: "f", value: metalParameters.roughness },
     metalness: {type: "f", value: metalParameters.metalness },
+    ambientLight: {type:"vec3", value: ambientLight},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -109,6 +115,7 @@ let uRoseGold = {
     c:	{ type: "v3", value: roseGold },
     roughness: {type: "f", value: metalParameters.roughness },
     metalness: {type: "f", value: metalParameters.metalness },
+    ambientLight: {type:"vec3", value: ambientLight},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -126,7 +133,7 @@ let textureParameters = {
     //material: "Tcom_Plastic_SpaceBlanketFolds",
     material: "Wood_Wicker",
 }
-let ambientLight = new THREE.Vector3(.5,.5,.5)
+
 let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_Color.jpg" );
 let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
 let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_Roughness.jpg" );

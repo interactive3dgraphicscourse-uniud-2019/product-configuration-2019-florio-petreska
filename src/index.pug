@@ -26,6 +26,7 @@ body
 		uniform vec3 c;
 		uniform float metalness;
 		uniform float roughness;
+		uniform vec3 ambientLight;
 		const float PI = 3.14159;
 		const int numberOfLights = 3;
 
@@ -70,6 +71,8 @@ body
 			for(int i=0; i<numberOfLights; i++) {
 				outRadianceF = outRadianceF + outRadiance[i];
 			}
+
+			outRadianceF = outRadianceF + ambientLight * c;
 
 			// gamma encode the final value
 			gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
