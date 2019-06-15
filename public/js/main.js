@@ -137,14 +137,15 @@ function init() {
     /* textured materials */
 
     let textureParameters = {
-        material: "wood_wicker",
-        metalness: 0,
+        //material: "Cloth2",
+        material: "Tcom_Plastic_SpaceBlanketFolds",
     }
-    let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_basecolor.jpg" );
-    let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_roughness.jpg" );
+    let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_color.jpg" );
+    let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
+    let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_Roughness.jpg" );
     let uniforms = {
         diffuseMap: { type: "t", value: diffuseMap},
-        metalness: {type: "f", value: textureParameters.metalness },
+        specularMap: { type: "t", value: specularMap},
         roughnessMap:	{ type: "t", value: roughnessMap},
         pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
         clight:	{ type: "v3", 
