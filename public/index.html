@@ -92,6 +92,8 @@ void main() {
 	uniform sampler2D roughnessMap;
 	uniform sampler2D normalMap;
 	uniform vec2 textureRepeat; // valore del repeat in 2D
+	uniform sampler2D aoMap;
+	uniform vec3 ambientLight;
 
 	vec3 metalness;
 	const float PI = 3.14159;
@@ -157,6 +159,7 @@ void main() {
 		 	outRadianceF = outRadianceF + outRadiance[i];
 		 }
 
+		outRadianceF = outRadianceF + ambientLight*cdiff*texture2D( aoMap, uVv*textureRepeat ).xyz;
 		
 
 		// gamma encode the final value
