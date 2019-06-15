@@ -90,6 +90,7 @@ body
 			vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );
 			uVv = uv; // uv variabile pre calcolata dal software (derivata dal modello)
 			gl_Position = projectionMatrix * vPos;
+
 		}
 
 	script(type="text/x-glsl", id="fragment-textures").
@@ -142,8 +143,8 @@ body
 					mat3 vTBN = mat3( tangent, bitangent, normal );
 					vec3 mapN = texture2D( normalMap, uVv ).xyz * 2.0 - 1.0; // inverso di +1; /2, prendo il valore corretto della normal map
 					//mapN.xy = normalScale * mapN.xy; // contributo della perturbazione (quanto influisce sulla normale)
-					//vec3 n = normalize( vTBN * mapN );
-					vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+					vec3 n = normalize( vTBN * mapN );
+					//vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
 					vec3 v = normalize( -vPosition);
 					vec3 h = normalize( v + l);
 					// small quantity to prevent divisions by 0
@@ -174,8 +175,7 @@ body
 				
 
 				// gamma encode the final value
-				gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
-			
+				gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);	
 			}
 	
 	.navbar-fixed

@@ -7,11 +7,11 @@ class Tablet {
     
     loadObject(callback) {
         const objLoader = new THREE.OBJLoader2();
+        objLoader.useIndices = true;
         return objLoader.load(this.path, (event) => callback(event));
     }
 
     loaded(event) {
-            console.log(event.detail.loaderRootNode.children[0])
             this.logo = event.detail.loaderRootNode.children[0];
             THREE.BufferGeometryUtils.computeTangents(this.logo.geometry);
             this.frame = event.detail.loaderRootNode.children[1];
