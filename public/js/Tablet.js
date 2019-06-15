@@ -15,7 +15,9 @@ class Tablet {
             this.logo = event.detail.loaderRootNode.children[0];
             THREE.BufferGeometryUtils.computeTangents(this.logo.geometry);
             this.frame = event.detail.loaderRootNode.children[1];
+            THREE.BufferGeometryUtils.computeTangents(this.frame.geometry);
             this.screen = event.detail.loaderRootNode.children[2];
+            THREE.BufferGeometryUtils.computeTangents(this.screen.geometry);
             this.back = event.detail.loaderRootNode.children[3];
             THREE.BufferGeometryUtils.computeTangents(this.back.geometry);
            // console.log(this.back);

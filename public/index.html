@@ -67,15 +67,23 @@ varying vec3 vPosition;
 varying vec2 uVv;
 varying vec3 vTangent;
 varying vec3 vBitangent;
+
+uniform sampler2D displacementMap;
+uniform vec2 textureRepeat; 
+
 void main() {
-	vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
-	vPosition = vPos.xyz;
 	vNormal = normalMatrix * normal;
 	vec3 objectTangent = vec3( tangent.xyz );
 	vec3 transformedTangent = normalMatrix * objectTangent;
 	vTangent = normalize( transformedTangent );
 	vBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );
 	uVv = uv; // uv variabile pre calcolata dal software (derivata dal modello)
+	vec3 displacementFactor = vec3(.05);
+	vec3 displacement = texture2D( displacementMap, uVv*textureRepeat ).rgb;
+	vec3 newPos = position + normal * displacement *displacementFactor;
+	vec4 vPos = modelViewMatrix * vec4( newPos, 1.0 );
+	vPosition = vPos.xyz;
+	
 	gl_Position = projectionMatrix * vPos;
 
 }

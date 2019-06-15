@@ -18,8 +18,8 @@ var lightParameters = {
     intensity: 2,
 }
 var lightsPosition = [
-    new THREE.Vector3(-5, 5,0),
-    new THREE.Vector3(5,5,0),
+    new THREE.Vector3(-5, -5,5),
+    new THREE.Vector3(5,-5,5),
     new THREE.Vector3(0, 5, -1),
 ]
 
@@ -128,11 +128,13 @@ let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_
 let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
 let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_Roughness.jpg" );
 let normalMap = loadTexture( "textures/" + textureParameters.material + "_Normal.jpg" );
+let displacementMap = loadTexture( "textures/" + textureParameters.material + "_Height.jpg" );
 let textureUniforms = {
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
     normalMap:	{ type: "t", value: normalMap},
+    displacementMap:	{ type: "t", value: displacementMap},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -169,7 +171,7 @@ function init() {
 
     /* scene initialization */
     backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
-    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs })
+    frameMaterial = new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: tvs, fragmentShader: tfs })
     
     frameMaterials = [
         new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
