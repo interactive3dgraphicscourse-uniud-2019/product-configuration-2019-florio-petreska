@@ -126,7 +126,7 @@ void main() {
 			vec3 tangent = normalize( vTangent );
 			vec3 bitangent = normalize( vBitangent );
 			mat3 vTBN = mat3( tangent, bitangent, normal );
-			vec3 mapN = texture2D( normalMap, uVv ).xyz * 2.0 - 1.0; // inverso di +1; /2, prendo il valore corretto della normal map
+			vec3 mapN = texture2D( normalMap, uVv * textureRepeat ).xyz * 2.0 - 1.0; // inverso di +1; /2, prendo il valore corretto della normal map
 			//mapN.xy = normalScale * mapN.xy; // contributo della perturbazione (quanto influisce sulla normale)
 			vec3 n = normalize( vTBN * mapN );
 			//vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
