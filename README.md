@@ -31,8 +31,8 @@ Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphi
 ## Risultato finale
 
 Il risultato finale è il seguente:
-![](images/final-front.png)
-![](images/final-back.png)
+![](images/final-front1.png)
+![](images/final-back1.png)
 
 
 
@@ -40,10 +40,11 @@ Il risultato finale è il seguente:
 Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 3 parti separate: lo schermo, la cornice e la scocca.
 
 ## Textures
-![](images/front-materials.png)
-![](images/back-materials.png)
+![](images/front-materials1.png)
+![](images/back-materials1.png)
 
 Sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca e si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
+I materiali per la cornice sono: Black, White e Matte Black, e invece per la scocca sono: Gold, Cloth e Ancient Gold.
 
 ## Interface
 Il focus della pagina è il configuratore e nella parte destra della pagina web si trovano i materiali da cui l'utente può scegliere quale tipo di materiale vuole applicare sulla parte Front e Back del tablet. Sotto il menù dei materiali c'è la descrizione del prodotto
