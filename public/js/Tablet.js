@@ -41,6 +41,9 @@ class Tablet {
             case 1: 
                 this.frame.material = material;
                 break;
+            case 2: 
+                this.screen.material = material;
+                break;
         }
 
     }

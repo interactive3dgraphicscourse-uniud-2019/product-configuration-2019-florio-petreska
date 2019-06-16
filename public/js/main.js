@@ -1,7 +1,8 @@
-let controls, tablet, vs, fs, tvs, tfs, backMaterial, frameMaterial, frameMaterials, backMaterials, container, renderer, camera;
+let controls, tablet, vs, fs, tvs, tfs, backMaterial, frameMaterial, screenMaterial, frameMaterials, backMaterials, container, renderer, camera;
 const numLights = 3;
 const BACK = 0;
 const FRAME = 1;
+const SCREEN = 2;
 
 container = document.getElementById("threejs-container");
 console.log(container)
@@ -26,21 +27,22 @@ var lightsPosition = [
 ]
 let ambientLight = new THREE.Vector3(.2,.2,.2)
 
-var loader = new THREE.HDRCubeTextureLoader();
-loader.setPath( 'textures/Studio_HDR/' );
-loader.setType( THREE.UnsignedByteType );
+var loader = new THREE.CubeTextureLoader();
+//var loader = new THREE.HDRCubeTextureLoader();
+loader.setPath( 'textures/Studio/' );
+//loader.setType( THREE.UnsignedByteType );
 
-/* var textureCube = loader.load( [
+var textureCube = loader.load( [
     'px.png', 'nx.png',
     'py.png', 'ny.png',
     'pz.png', 'nz.png'
-] ); */
+] );
 
-var textureCube = loader.load( [
+/* var textureCube = loader.load( [
     'px.hdr', 'nx.hdr',
     'py.hdr', 'ny.hdr',
     'pz.hdr', 'nz.hdr'
-] );
+] ); */
 
 scene.background = textureCube;
 
@@ -49,7 +51,7 @@ scene.background = textureCube;
 
 // (SHINY) PLASTIC
 let plasticParameters = {
-    roughness: 0.2,
+    roughness: 0.3,
     metalness: 0
 }
 // plastic colors
@@ -86,6 +88,24 @@ let uWhitePlastic = {
         ) 
     },
 }
+
+let screenBlack = new THREE.Vector3(.02, .02, .02);
+let uScreen = {
+    c:	{ type: "v3", value: screenBlack },
+    roughness: {type: "f", value: 0.2 },
+    metalness: {type: "f", value: plasticParameters.metalness },
+    pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+    ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
+    clight:	{ type: "v3", 
+        value: new THREE.Vector3(
+            lightParameters.red * lightParameters.intensity,
+            lightParameters.green * lightParameters.intensity,
+            lightParameters.blue * lightParameters.intensity
+        ) 
+    },
+}
+
 
 // (OPAQUE) PLASTIC
 let opaquePlasticParameters = {
@@ -202,16 +222,18 @@ function init() {
     stats.domElement.style.top = '0px';
     document.body.appendChild( stats.domElement );
     
+    /* scene initialization */
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
+    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs })
+    screenMaterial = new THREE.ShaderMaterial({ uniforms: uScreen, vertexShader: vs, fragmentShader: fs })
+    
     /* Tablet loader */
     tablet = new Tablet('./assets/tablet-groups-2.obj');
     tablet.loadObject((event)=> {
         tablet.loaded(event);
         tablet.addToScene(scene);
+        tablet.changeMaterial(SCREEN, screenMaterial);
     });  
-
-    /* scene initialization */
-    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
-    frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs })
     
     frameMaterials = [
         new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs }),
