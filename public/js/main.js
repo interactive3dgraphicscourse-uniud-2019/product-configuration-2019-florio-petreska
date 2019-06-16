@@ -26,13 +26,20 @@ var lightsPosition = [
 ]
 let ambientLight = new THREE.Vector3(.2,.2,.2)
 
-var loader = new THREE.CubeTextureLoader();
-loader.setPath( 'textures/Studio/' );
+var loader = new THREE.HDRCubeTextureLoader();
+loader.setPath( 'textures/Studio_HDR/' );
+loader.setType( THREE.UnsignedByteType );
 
-var textureCube = loader.load( [
+/* var textureCube = loader.load( [
     'px.png', 'nx.png',
     'py.png', 'ny.png',
     'pz.png', 'nz.png'
+] ); */
+
+var textureCube = loader.load( [
+    'px.hdr', 'nx.hdr',
+    'py.hdr', 'ny.hdr',
+    'pz.hdr', 'nz.hdr'
 ] );
 
 scene.background = textureCube;

@@ -1,4 +1,4 @@
-<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><link rel="stylesheet" href="./css/main.css"/><script src="./js/lib/three.min.js"></script><script src="./js/lib/stats.min.js"></script><script src="./js/lib/OrbitControls.js"></script><script src="./js/lib/LoaderSupport.js"></script><script src="./js/lib/OBJLoader2.js"></script><script src="./js/lib/BufferGeometryUtils.js"></script></head><body><script type="text/x-glsl" id="vertex-textures">attribute vec4 tangent;
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><link rel="stylesheet" href="./css/main.css"/><script src="./js/lib/three.min.js"></script><script src="./js/lib/stats.min.js"></script><script src="./js/lib/OrbitControls.js"></script><script src="./js/lib/LoaderSupport.js"></script><script src="./js/lib/OBJLoader2.js"></script><script src="./js/lib/RGBELoader.js"></script><script src="./js/lib/HDRCubeTextureLoader.js"></script><script src="./js/lib/BufferGeometryUtils.js"></script></head><body><script type="text/x-glsl" id="vertex-textures">attribute vec4 tangent;
 varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec3 wPosition;
@@ -86,7 +86,7 @@ void main() {
 	vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb;
 	envLight = pow( envLight, vec3(2.2));
 	
-	outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight + ambientLight * c;
+	outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*(normalize(envLight)) + ambientLight * c;
 
 	// gamma encode the final value
 	gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);

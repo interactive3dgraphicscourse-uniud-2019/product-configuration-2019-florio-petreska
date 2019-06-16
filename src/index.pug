@@ -6,6 +6,8 @@ head
 	script(src="./js/lib/OrbitControls.js")
 	script(src="./js/lib/LoaderSupport.js")
 	script(src="./js/lib/OBJLoader2.js")
+	script(src="./js/lib/RGBELoader.js")
+	script(src="./js/lib/HDRCubeTextureLoader.js")
 	script(src="./js/lib/BufferGeometryUtils.js")
 body
 	script(type="text/x-glsl", id="vertex-textures").
@@ -99,7 +101,7 @@ body
 			vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb;
 			envLight = pow( envLight, vec3(2.2));
 			
-			outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight + ambientLight * c;
+			outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*(normalize(envLight)) + ambientLight * c;
 
 			// gamma encode the final value
 			gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
