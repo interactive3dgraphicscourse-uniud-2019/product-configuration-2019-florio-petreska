@@ -99,7 +99,7 @@ body
 			vec3 envLight = textureCube( envMap, vec3(-r.x, r.yz)).rgb;
 			envLight = pow( envLight, vec3(2.2));
 			
-			outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight; //ambientLight * c;
+			outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight + ambientLight * c;
 
 			// gamma encode the final value
 			gl_FragColor = vec4(pow( outRadianceF, vec3(1.0/2.2)), 1.0);
@@ -206,7 +206,7 @@ body
 				 	outRadianceF = outRadianceF + outRadiance[i];
 				 }
 
-				outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight; //ambientLight*cdiff*texture2D( aoMap, uVv*textureRepeat ).xyz;
+				outRadianceF = outRadianceF + vec3(1.0-roughness)*sumFresnel/vec3(numberOfLights)*envLight + ambientLight*cdiff*texture2D( aoMap, uVv*textureRepeat ).xyz;
 				
 
 				// gamma encode the final value
