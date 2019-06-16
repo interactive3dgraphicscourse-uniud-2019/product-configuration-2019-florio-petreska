@@ -172,18 +172,18 @@ let uRoseGold = {
 /* textured materials */
 
 let textureParameters = {
-    material: "Cloth2",
-    //material: "Tcom_Plastic_SpaceBlanketFolds",
+    cloth: "Cloth2",
+    gold: "Tcom_Plastic_SpaceBlanketFolds",
     //material: "Wood_Wicker",
 }
 
-let diffuseMap = loadTexture( "textures/" + textureParameters.material + "_Base_Color.jpg" );
-let specularMap = loadTexture( "textures/" + textureParameters.material + "_Metallic.jpg" );
-let roughnessMap = loadTexture( "textures/" + textureParameters.material + "_Roughness.jpg" );
-let normalMap = loadTexture( "textures/" + textureParameters.material + "_Normal.jpg" );
-let aoMap = loadTexture( "textures/" + textureParameters.material + "_Ambient_Occlusion.jpg" );
+let diffuseMap = loadTexture( "textures/" + textureParameters.cloth + "_Base_Color.jpg" );
+let specularMap = loadTexture( "textures/" + textureParameters.cloth + "_Metallic.jpg" );
+let roughnessMap = loadTexture( "textures/" + textureParameters.cloth + "_Roughness.jpg" );
+let normalMap = loadTexture( "textures/" + textureParameters.cloth + "_Normal.jpg" );
+let aoMap = loadTexture( "textures/" + textureParameters.cloth + "_Ambient_Occlusion.jpg" );
 
-let textureUniforms = {
+let clothUniforms = {
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
@@ -200,6 +200,31 @@ let textureUniforms = {
         ) 
     },
     textureRepeat: { type: "v2", value: new THREE.Vector2(5,5) }
+};
+
+let gdiffuseMap = loadTexture( "textures/" + textureParameters.gold + "_Base_Color.jpg" );
+let gspecularMap = loadTexture( "textures/" + textureParameters.gold + "_Metallic.jpg" );
+let groughnessMap = loadTexture( "textures/" + textureParameters.gold + "_Roughness.jpg" );
+let gnormalMap = loadTexture( "textures/" + textureParameters.gold + "_Normal.jpg" );
+let gaoMap = loadTexture( "textures/" + textureParameters.gold + "_Ambient_Occlusion.jpg" );
+
+let goldUniforms = {
+    diffuseMap: { type: "t", value: gdiffuseMap},
+    specularMap: { type: "t", value: gspecularMap},
+    roughnessMap:	{ type: "t", value: groughnessMap},
+    normalMap:	{ type: "t", value: gnormalMap},
+    aoMap:	{ type: "t", value: gaoMap},
+    ambientLight: {type:"v3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
+    pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
+    clight:	{ type: "v3", 
+        value: new THREE.Vector3(
+            lightParameters.red * lightParameters.intensity,
+            lightParameters.green * lightParameters.intensity,
+            lightParameters.blue * lightParameters.intensity
+        ) 
+    },
+    textureRepeat: { type: "v2", value: new THREE.Vector2(3,3) }
 };
 
 /* shaders retrieval */
@@ -244,8 +269,8 @@ function init() {
 
     backMaterials = [
         new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uRoseGold, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: vs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: clothUniforms, vertexShader: vs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: goldUniforms, vertexShader: vs, fragmentShader: tfs }),
     ] 
     
 
@@ -283,7 +308,6 @@ update();
 
 let changeMaterial = (code) => {
     code = code.split("-");
-    console.log(parseInt(code[1]))
     if(code[0]=="f"){
         frameMaterial = frameMaterials[parseInt(code[1])-1];
     }
@@ -297,7 +321,6 @@ let changeMaterial = (code) => {
 }
 
 function onResize() {
-    console.log(container)
     renderer.setSize( container.clientWidth, container.clientHeight );
     camera.aspect = ( container.clientWidth / container.clientHeight );
     camera.updateProjectionMatrix();
@@ -312,9 +335,6 @@ document.addEventListener('click', function (event) {
 	// If the clicked element doesn't have the right selector, bail
 	if (!event.target.parentNode.matches('.prop-images .selection')) return;
 
-	// Don't follow the link
-	event.preventDefault();
-
     changeMaterial(event.target.parentNode.getAttribute("data-value"))
     // Log the clicked element in the console
     let children = event.target.parentNode.parentNode.children
@@ -322,5 +342,6 @@ document.addEventListener('click', function (event) {
         children[i].classList.remove("active")   
     }
     event.target.parentNode.classList.add("active")
+    document.getElementsByClassName(event.target.parentNode.parentNode.getAttribute("target"))[0].children[0].children[0].innerText = event.target.getAttribute("alt")
 
 }, false);
