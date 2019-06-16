@@ -8,8 +8,7 @@ Il progetto consiste in una rappresentazione di un modello 3D, il tablet "ACMEpa
 
 ## Struttura del Progetto
 Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphicscourse-uniud-2019/product-configuration-2019-florio-petreska. Il contenuto del repository è il seguente:
-
-* avatars - 
+ 
 * images - screen capture e altre immagini utilizzate nel journal e nella documentazione in genere
 * logo	- contiene il design del logo
 * public 
@@ -19,7 +18,6 @@ Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphi
     * js -  è il file contiene main.js , Tablet.js e la cartella lib sono contenute le librerie esterne
     * textures -  contiene le immagini necessarie per i materiali
     * index.html - è il file HTML principale con le referenze ai file JS e CSS che danno vita al progetto 
-* similar-products - immagini di prodotti simili usati nel journal
 * src
     * index.pug
     * main.scss
@@ -32,4 +30,15 @@ Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphi
 ## Risultato finale
 
 Il risultato finale è il seguente:
+
+
+
+## Il modello 3D
+Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 3 parti separate: lo schermo, la cornice e la scocca.
+
+## Textures
+
+
+
+
 
