@@ -108,7 +108,7 @@ Il codice è stato sistemato e reso più leggibile.
 
 ![](images/textures.png)
 
-È satato modificato lo shader per accettare una normal map.
+È stato modificato lo shader per accettare una normal map.
 
 ![](images/normal-mapping.png)
 
