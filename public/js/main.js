@@ -53,6 +53,7 @@ let uBlackPlastic = {
     metalness: {type: "f", value: plasticParameters.metalness },
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
             lightParameters.red * lightParameters.intensity,
@@ -68,6 +69,7 @@ let uWhitePlastic = {
     roughness: {type: "f", value: plasticParameters.roughness },
     metalness: {type: "f", value: plasticParameters.metalness },
     ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -80,15 +82,16 @@ let uWhitePlastic = {
 
 // (OPAQUE) PLASTIC
 let opaquePlasticParameters = {
-    roughness: 0.9,
+    roughness: .9,
     metalness: 0
 }
-let darkGrey = new THREE.Vector3(.05, .05, .05);
+let darkGrey = new THREE.Vector3(.01, .01, .01);
 let uBlackPlasticOpaque = {
     c:	{ type: "v3", value: darkGrey },
     roughness: {type: "f", value: opaquePlasticParameters.roughness },
     metalness: {type: "f", value: opaquePlasticParameters.metalness },
     ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -113,6 +116,7 @@ let uGold = {
     roughness: {type: "f", value: metalParameters.roughness },
     metalness: {type: "f", value: metalParameters.metalness },
     ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -127,6 +131,7 @@ let uRoseGold = {
     roughness: {type: "f", value: metalParameters.roughness },
     metalness: {type: "f", value: metalParameters.metalness },
     ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
     pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
     clight:	{ type: "v3", 
         value: new THREE.Vector3(
@@ -140,8 +145,8 @@ let uRoseGold = {
 /* textured materials */
 
 let textureParameters = {
-    //material: "Cloth2",
-    material: "Tcom_Plastic_SpaceBlanketFolds",
+    material: "Cloth2",
+    //material: "Tcom_Plastic_SpaceBlanketFolds",
     //material: "Wood_Wicker",
 }
 
@@ -172,10 +177,10 @@ let textureUniforms = {
 
 /* shaders retrieval */
 // COMBINED
-vs = document.getElementById("vertex").textContent;
+//vs = document.getElementById("vertex").textContent;
 fs = document.getElementById("fragment").textContent;
 // TEXTURES
-tvs = document.getElementById("vertex-textures").textContent;
+vs = document.getElementById("vertex-textures").textContent;
 tfs = document.getElementById("fragment-textures").textContent;
 
 
@@ -211,7 +216,7 @@ function init() {
     backMaterials = [
         new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
         new THREE.ShaderMaterial({ uniforms: uRoseGold, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: tvs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: vs, fragmentShader: tfs }),
     ] 
     
 
