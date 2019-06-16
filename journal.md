@@ -128,3 +128,7 @@ L'environment map dello studio è stata sostituita con una mappa creata artifici
 Il codice dello shader è stato modificato di modo che anche i materiali senza texture avessero la luce della mappa ambientale. Quindi è stato tolto un vertex shader ed è rimasto solo quello con il quale si calcolano anche tangente e bitangente.
 
 ![](images/envmap.png)
+
+È  stata sostituita la environment map in .png con immagini hdr, ma con risultati poco soddisfacenti.
+
+![](images/hdr.png)
