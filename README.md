@@ -6,8 +6,11 @@ Autori:
 ## Descrizione del Progetto
 Il progetto consiste in una rappresentazione di un modello 3D, il tablet "ACMEpad" che è configurato per la pagina e'commerce dell'azienda ACME.
 
+
 ## Struttura del Progetto
 Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphicscourse-uniud-2019/product-configuration-2019-florio-petreska. Il contenuto del repository è il seguente:
+![](images/final-front.png)
+![](images/final-back.png)
  
 * images - screen capture e altre immagini utilizzate nel journal e nella documentazione in genere
 * logo	- contiene il design del logo
@@ -40,10 +43,17 @@ Come modello 3D utilizziamo un nostro modello realizzato con Blender e successiv
 ![](images/front-materials.png)
 ![](images/back-materials.png)
 
-Sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca che si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
+Sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca e si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
 
+## Interface
+Il focus della pagina è il configuratore e nella parte destra della pagina web si trovano i materiali da cui l'utente può scegliere quale tipo di materiale vuole applicare sulla parte Front e Back del tablet. Sotto il menù dei materiali c'è la descrizione del prodotto
 
-
+## Possibili Miglioramenti
+Rispetto al risultato attualmente raggiunto, sono previsti i seguenti miglioramenti ed estensioni:
+* Implementare la seconda parte della pagina web, inserendo i reviews e i commenti degli utenti
+* Ottimizzazioni varie per migliorare le performance
+* Creare altri materiali
+* Possibilità di esportare il tablet con le scelte fatte di materiali in un formato di file desiderato
 
 
 
