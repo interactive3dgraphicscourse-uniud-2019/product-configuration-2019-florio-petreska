@@ -37,6 +37,11 @@ Il risultato finale è il seguente:
 Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 3 parti separate: lo schermo, la cornice e la scocca.
 
 ## Textures
+![](images/front-materials.png)
+![](images/back-materials.png)
+
+Sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca che si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
+
 
 
 
