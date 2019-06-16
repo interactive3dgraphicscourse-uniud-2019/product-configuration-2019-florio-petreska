@@ -117,6 +117,9 @@ Sono stati effettuati alcuni tentativi per integrare una height map per il displ
 ![](images/displacement-attempts.png)
 ![](images/displacement.png)
 
+È stata applicata una luce ambientale con ambiento occlusion calcolata da una texture per lo shader con le texture e una ambient light per lo shader dei materiali senza texture.
 
+Infine è stata applicata una environment map di uno studio di fotografia presa un HDR da HDRI haven e trasformata in cube map tramite il sito https://matheowis.github.io/HDRI-to-CubeMap/
 
+## 16/06/2019
 
