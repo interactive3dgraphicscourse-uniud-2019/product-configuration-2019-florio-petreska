@@ -131,7 +131,7 @@ let uBlackPlasticOpaque = {
 
 // METALS
 let metalParameters = {
-    roughness: 0.4,
+    roughness: 0.2,
     metalness: 1
 }  
 // metals colors
@@ -199,12 +199,35 @@ let specularMap = loadTexture( "textures/" + textureParameters.cloth + "_Metalli
 let roughnessMap = loadTexture( "textures/" + textureParameters.cloth + "_Roughness.jpg" );
 let normalMap = loadTexture( "textures/" + textureParameters.cloth + "_Normal.jpg" );
 let aoMap = loadTexture( "textures/" + textureParameters.cloth + "_Ambient_Occlusion.jpg" );
+let alphaMap = loadTexture( "textures/acme_fill.png" );
+let alphaMapInverted = loadTexture( "textures/acme_fill_inverted.png" );
 
 let uACMECotton = {
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
     normalMap:	{ type: "t", value: normalMap},
+    alphaMap: {type:"t", value: alphaMap},
+    aoMap:	{ type: "t", value: aoMap},
+    ambientLight: {type:"v3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
+    pointLightsPosition:	{ type: "v3[]", value: lightsPosition   },
+    clight:	{ type: "v3", 
+        value: new THREE.Vector3(
+            lightParameters.red * lightParameters.intensity,
+            lightParameters.green * lightParameters.intensity,
+            lightParameters.blue * lightParameters.intensity
+        ) 
+    },
+    textureRepeat: { type: "v2", value: new THREE.Vector2(3,4) }
+};
+
+let uACMECottonInverted = {
+    diffuseMap: { type: "t", value: diffuseMap},
+    specularMap: { type: "t", value: specularMap},
+    roughnessMap:	{ type: "t", value: roughnessMap},
+    normalMap:	{ type: "t", value: normalMap},
+    alphaMap: {type:"t", value: alphaMapInverted},
     aoMap:	{ type: "t", value: aoMap},
     ambientLight: {type:"v3", value: ambientLight},
     envMap: {type:"t", value: textureCube},
@@ -225,11 +248,16 @@ let groughnessMap = loadTexture( "textures/" + textureParameters.gold + "_Roughn
 let gnormalMap = loadTexture( "textures/" + textureParameters.gold + "_Normal.jpg" );
 let gaoMap = loadTexture( "textures/" + textureParameters.gold + "_Ambient_Occlusion.jpg" );
 
+
 let uAncientGold = {
+    c:	{ type: "v3", value: silver },
+    aRoughness: {type: "f", value: .2 },
+    aMetalness: {type: "f", value: metalParameters.metalness },
     diffuseMap: { type: "t", value: gdiffuseMap},
     specularMap: { type: "t", value: gspecularMap},
     roughnessMap:	{ type: "t", value: groughnessMap},
     normalMap:	{ type: "t", value: gnormalMap},
+    alphaMap: {type:"t", value: alphaMap},
     aoMap:	{ type: "t", value: gaoMap},
     ambientLight: {type:"v3", value: ambientLight},
     envMap: {type:"t", value: textureCube},
@@ -250,7 +278,9 @@ let uAncientGold = {
 fs = document.getElementById("fragment").textContent;
 // TEXTURES
 vs = document.getElementById("vertex-textures").textContent;
-tfs = document.getElementById("fragment-textures").textContent;
+//tfs = document.getElementById("fragment-textures").textContent;
+// BACKDOUBLE
+dfs = document.getElementById("fragment-doublematerial").textContent;
 
 
 function init() {
@@ -265,7 +295,7 @@ function init() {
     document.body.appendChild( stats.domElement );
     
     /* scene initialization */
-    backMaterial = new THREE.ShaderMaterial({ uniforms: uSilver, vertexShader: vs, fragmentShader: fs }),
+    backMaterial = new THREE.ShaderMaterial({ uniforms:  uACMECottonInverted, vertexShader: vs, fragmentShader: dfs }),
     frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs })
     screenMaterial = new THREE.ShaderMaterial({ uniforms: uScreen, vertexShader: vs, fragmentShader: fs })
     
@@ -285,9 +315,9 @@ function init() {
     ] 
 
     backMaterials = [
-        new THREE.ShaderMaterial({ uniforms: uSilver, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: uACMECotton, vertexShader: vs, fragmentShader: tfs }),
-        new THREE.ShaderMaterial({ uniforms: uAncientGold, vertexShader: vs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: uACMECottonInverted, vertexShader: vs, fragmentShader: dfs }),
+        new THREE.ShaderMaterial({ uniforms: uACMECotton, vertexShader: vs, fragmentShader: dfs }),
+        new THREE.ShaderMaterial({ uniforms: uAncientGold, vertexShader: vs, fragmentShader: dfs }),
     ] 
     
 
