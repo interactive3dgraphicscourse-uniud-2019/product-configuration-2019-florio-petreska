@@ -32,6 +32,8 @@ Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphi
 
 Il risultato finale è il seguente:
 ![](images/final-front2.png)
+
+
 ![](images/final-back2.png)
 
 
