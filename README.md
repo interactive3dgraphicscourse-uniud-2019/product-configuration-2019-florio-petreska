@@ -31,8 +31,8 @@ Il progetto è ospitato su Github all'URL https://github.com/interactive3dgraphi
 ## Risultato finale
 
 Il risultato finale è il seguente:
-![](images/final-front1.png)
-![](images/final-back1.png)
+![](images/final-front2.png)
+![](images/final-back2.png)
 
 
 
@@ -40,8 +40,8 @@ Il risultato finale è il seguente:
 Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 4 parti separate: lo schermo, la cornice, la scocca e il tablet ha anche un logo inciso sul retro, fatto di materiale metallico.
 
 ## Textures
-![](images/front-materials1.png)
-![](images/back-materials1.png)
+![](images/materiali-final.png)
+
 
 Seguendo l'idea "less is more" secondo la quale un utente con più scelte è più confuso su cosa fare rispetto ad utente a cui se ne presentano poche opzioni, sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca e si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
 
