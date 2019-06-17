@@ -203,6 +203,9 @@ let alphaMap = loadTexture( "textures/acme_fill.png" );
 let alphaMapInverted = loadTexture( "textures/acme_fill_inverted.png" );
 
 let uACMECotton = {
+    c:	{ type: "v3", value: silver },
+    aRoughness: {type: "f", value: .2 },
+    aMetalness: {type: "f", value: metalParameters.metalness },
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
@@ -223,7 +226,10 @@ let uACMECotton = {
 };
 
 let uACMECottonInverted = {
-    diffuseMap: { type: "t", value: diffuseMap},
+    c:	{ type: "v3", value: silver },
+    aRoughness: {type: "f", value: .3 },
+    aMetalness: {type: "f", value: metalParameters.metalness },
+    diffuseMap: { type: "t", value: alphaMapInverted},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
     normalMap:	{ type: "t", value: normalMap},
@@ -250,9 +256,9 @@ let gaoMap = loadTexture( "textures/" + textureParameters.gold + "_Ambient_Occlu
 
 
 let uAncientGold = {
-    c:	{ type: "v3", value: silver },
-    aRoughness: {type: "f", value: .2 },
-    aMetalness: {type: "f", value: metalParameters.metalness },
+    c:	{ type: "v3", value: darkGrey },
+    aRoughness: {type: "f", value: opaquePlasticParameters.roughness },
+    aMetalness: {type: "f", value: opaquePlasticParameters.metalness },
     diffuseMap: { type: "t", value: gdiffuseMap},
     specularMap: { type: "t", value: gspecularMap},
     roughnessMap:	{ type: "t", value: groughnessMap},
