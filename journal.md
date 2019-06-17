@@ -132,3 +132,13 @@ Il codice dello shader è stato modificato di modo che anche i materiali senza t
 È  stata sostituita la environment map in .png con immagini hdr, ma con risultati poco soddisfacenti.
 
 ![](images/hdr.png)
+
+## 17/06/2019
+Sono stati scelti i materiali definitivi per il sito, decidendo di lasciare poche opzioni, seguendo l'idea "less is more" secondo la quale un utente con più scelte è più confuso su cosa fare rispetto ad utente a cui se ne presentano poche.
+
+Infine è stato cmbiato lo shader per accettare una mappa di "alpha", ovvero un'immagine in bianco e nero e due materiali differenti. Uno sarà applicato dove l'immagine di alpha è bianca e l'altro dove l'immagine di alpha è nera.
+
+![](images/alphaimage.png)
+
+![](images/double.png)
+
