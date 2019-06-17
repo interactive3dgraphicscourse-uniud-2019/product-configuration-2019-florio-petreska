@@ -73,7 +73,7 @@ Il contenuto di file e cartelle è:
     - `textures/` contiene le immagini utili alla definizione dei materiali
     - `index.html` è il file (minimizzato) contenente il codice del markup e degli shader
 
-- `src/` è la cartella che contiene i sorgenti per i file html e css, scritti utilizzando  rispettivamente [Pug](https://pugjs.org/api/getting-started.html) e [Sass]
+- `src/` è la cartella che contiene i sorgenti per i file html e css, scritti utilizzando  rispettivamente [Pug](https://pugjs.org/api/getting-started.html) e [Sass](https://sass-lang.com/)
 
 - `images/`contiene screen capture e altre immagini utilizzate nel journal e nella documentazione in genere
 
@@ -135,6 +135,20 @@ Rispetto al risultato attualmente raggiunto, sono possibili i seguenti miglioram
 * Possibilità di esportare il tablet con le scelte fatte di materiali in un formato di file desiderato
 * Miglioramento dello shader con la selezione del doppio materiale di modo che si possano scegliere anche due materiali con texture o due materiali senza texture
 
+
+## Risorse
+* 3D: [three.js](https://threejs.org/)
+* Textures scaricate da
+    * https://beta.gametextures.com/shop/623776 - cotone
+    * https://www.textures.com/download/pbr0152/133187 - oro antico
+
+  e successivamente importate in Substance B2M per una personalizzazione e da lì esportate in jpeg
+* Pacchetto di immagini HDR artificiali scaricato da https://gumroad.com/l/StudiolightSet05 e successivamente trasformato in cube map con https://matheowis.github.io/HDRI-to-CubeMap/
+* Risorse per lo sviluppo della pagina web
+    * [npm](https://www.npmjs.com/)
+    * [Gulp](https://gulpjs.com/) 
+    * [Pug](https://pugjs.org/api/getting-started.html) 
+    * [Sass](https://sass-lang.com/)
 
 
 
