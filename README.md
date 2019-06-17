@@ -37,17 +37,18 @@ Il risultato finale è il seguente:
 
 
 ## Il modello 3D
-Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 3 parti separate: lo schermo, la cornice e la scocca.
+Come modello 3D utilizziamo un nostro modello realizzato con Blender e successivamente esportato come un file Wavefront (.obj) diviso in 4 parti separate: lo schermo, la cornice, la scocca e il tablet ha anche un logo inciso sul retro, fatto di materiale metallico.
 
 ## Textures
 ![](images/front-materials1.png)
 ![](images/back-materials1.png)
 
-Sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca e si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
-I materiali per la cornice sono: Black, White e Matte Black, e invece per la scocca sono: Gold, Cloth e Ancient Gold.
+Seguendo l'idea "less is more" secondo la quale un utente con più scelte è più confuso su cosa fare rispetto ad utente a cui se ne presentano poche opzioni, sono stati creati 3 diversi materiali per la cornice e 3 diversi materiali per la scocca e si possono cambiare tali materiali con un meccanismo tramite l'interfaccia grafica.
+
+I materiali per la cornice sono: Black (lucente), White (lucente) e Matte Black (opaco), e invece per la scocca sono: Silver (no cover), ACME Cotton (cotton cover) e Ancient Gold (metal cover).
 
 ## Interface
-Il focus della pagina è il configuratore e nella parte destra della pagina web si trovano i materiali da cui l'utente può scegliere quale tipo di materiale vuole applicare sulla parte Front e Back del tablet. Sotto il menù dei materiali c'è la descrizione del prodotto
+Il focus della pagina è il configuratore e nella parte destra della pagina web si trovano i materiali da cui l'utente può scegliere quale tipo di materiale vuole applicare sulla parte Front e Back del tablet. Sotto il menù dei materiali c'è la descrizione del prodotto.
 
 ## Possibili Miglioramenti
 Rispetto al risultato attualmente raggiunto, sono previsti i seguenti miglioramenti ed estensioni:
