@@ -136,7 +136,8 @@ let metalParameters = {
 }  
 // metals colors
 let gold = new THREE.Vector3(212/255, 175/255, 55/255);
-let roseGold = new THREE.Vector3(184/255, 107/255, 119/255);
+let silver = new THREE.Vector3(196/255, 202/255, 206/255);
+//let roseGold = new THREE.Vector3(184/255, 107/255, 119/255);
 
 let uGold = {
     c:	{ type: "v3", value: gold },
@@ -153,8 +154,9 @@ let uGold = {
         ) 
     },
 }
-let uRoseGold = {
-    c:	{ type: "v3", value: roseGold },
+
+let uSilver = {
+    c:	{ type: "v3", value: silver },
     roughness: {type: "f", value: metalParameters.roughness },
     metalness: {type: "f", value: metalParameters.metalness },
     ambientLight: {type:"vec3", value: ambientLight},
@@ -168,11 +170,26 @@ let uRoseGold = {
         ) 
     },
 }
+/* let uRoseGold = {
+    c:	{ type: "v3", value: roseGold },
+    roughness: {type: "f", value: metalParameters.roughness },
+    metalness: {type: "f", value: metalParameters.metalness },
+    ambientLight: {type:"vec3", value: ambientLight},
+    envMap: {type:"t", value: textureCube},
+    pointLightsPosition:	{ type: "v3[]", value: lightsPosition },
+    clight:	{ type: "v3", 
+        value: new THREE.Vector3(
+            lightParameters.red * lightParameters.intensity,
+            lightParameters.green * lightParameters.intensity,
+            lightParameters.blue * lightParameters.intensity
+        ) 
+    },
+} */
 
 /* textured materials */
 
 let textureParameters = {
-    cloth: "Cloth2",
+    cloth: "HerbTanCottonTwill",
     gold: "Tcom_Plastic_SpaceBlanketFolds",
     //material: "Wood_Wicker",
 }
@@ -183,7 +200,7 @@ let roughnessMap = loadTexture( "textures/" + textureParameters.cloth + "_Roughn
 let normalMap = loadTexture( "textures/" + textureParameters.cloth + "_Normal.jpg" );
 let aoMap = loadTexture( "textures/" + textureParameters.cloth + "_Ambient_Occlusion.jpg" );
 
-let clothUniforms = {
+let uACMECotton = {
     diffuseMap: { type: "t", value: diffuseMap},
     specularMap: { type: "t", value: specularMap},
     roughnessMap:	{ type: "t", value: roughnessMap},
@@ -199,7 +216,7 @@ let clothUniforms = {
             lightParameters.blue * lightParameters.intensity
         ) 
     },
-    textureRepeat: { type: "v2", value: new THREE.Vector2(5,5) }
+    textureRepeat: { type: "v2", value: new THREE.Vector2(3,4) }
 };
 
 let gdiffuseMap = loadTexture( "textures/" + textureParameters.gold + "_Base_Color.jpg" );
@@ -208,7 +225,7 @@ let groughnessMap = loadTexture( "textures/" + textureParameters.gold + "_Roughn
 let gnormalMap = loadTexture( "textures/" + textureParameters.gold + "_Normal.jpg" );
 let gaoMap = loadTexture( "textures/" + textureParameters.gold + "_Ambient_Occlusion.jpg" );
 
-let goldUniforms = {
+let uAncientGold = {
     diffuseMap: { type: "t", value: gdiffuseMap},
     specularMap: { type: "t", value: gspecularMap},
     roughnessMap:	{ type: "t", value: groughnessMap},
@@ -248,7 +265,7 @@ function init() {
     document.body.appendChild( stats.domElement );
     
     /* scene initialization */
-    backMaterial = new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
+    backMaterial = new THREE.ShaderMaterial({ uniforms: uSilver, vertexShader: vs, fragmentShader: fs }),
     frameMaterial = new THREE.ShaderMaterial({ uniforms: uBlackPlastic, vertexShader: vs, fragmentShader: fs })
     screenMaterial = new THREE.ShaderMaterial({ uniforms: uScreen, vertexShader: vs, fragmentShader: fs })
     
@@ -268,9 +285,9 @@ function init() {
     ] 
 
     backMaterials = [
-        new THREE.ShaderMaterial({ uniforms: uGold, vertexShader: vs, fragmentShader: fs }),
-        new THREE.ShaderMaterial({ uniforms: clothUniforms, vertexShader: vs, fragmentShader: tfs }),
-        new THREE.ShaderMaterial({ uniforms: goldUniforms, vertexShader: vs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: uSilver, vertexShader: vs, fragmentShader: fs }),
+        new THREE.ShaderMaterial({ uniforms: uACMECotton, vertexShader: vs, fragmentShader: tfs }),
+        new THREE.ShaderMaterial({ uniforms: uAncientGold, vertexShader: vs, fragmentShader: tfs }),
     ] 
     
 
@@ -310,11 +327,11 @@ let changeMaterial = (code) => {
     code = code.split("-");
     if(code[0]=="f"){
         frameMaterial = frameMaterials[parseInt(code[1])-1];
+        frameMaterial.vertexTangents = true;
     }
     if(code[0] == "b"){
         backMaterial = backMaterials[parseInt(code[1])-1];
         backMaterial.vertexTangents = true;
-        //ourMaterial.needsUpdate = true;
     }
 
     update();
