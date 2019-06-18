@@ -295,10 +295,10 @@ function init() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
     controls.target.set(0, 0, 0);
-
+/* 
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.top = '0px';
-    document.body.appendChild( stats.domElement );
+    document.body.appendChild( stats.domElement ); */
     
     /* scene initialization */
     backMaterial = new THREE.ShaderMaterial({ uniforms:  uACMECottonInverted, vertexShader: vs, fragmentShader: dfs }),
@@ -351,7 +351,7 @@ function update() {
     requestAnimationFrame(update);
     
     controls.update();
-    stats.update();
+    //stats.update();
     renderer.render(scene, camera);
 }
 

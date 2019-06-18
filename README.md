@@ -134,6 +134,7 @@ Rispetto al risultato attualmente raggiunto, sono possibili i seguenti miglioram
 * Implementare la seconda parte della pagina web, inserendo i reviews e i commenti degli utenti
 * Possibilità di esportare il tablet con le scelte fatte di materiali in un formato di file desiderato
 * Miglioramento dello shader con la selezione del doppio materiale di modo che si possano scegliere anche due materiali con texture o due materiali senza texture
+* Miglioramento del codice JS cercando di eliminare le molte ripetizioni
 
 
 ## Risorse
